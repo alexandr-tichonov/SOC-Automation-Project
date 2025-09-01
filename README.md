@@ -21,13 +21,15 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 * Practicing incident response automation with active response.
 
 ## Tools:
-Endpoint
+## Endpoint
 <div> <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"> <img src="https://img.shields.io/badge/-Sysmon-000000?&style=for-the-badge&logo=Windows&logoColor=white" /> </a> <a href="https://wazuh.com/"> <img src="https://img.shields.io/badge/-Wazuh-02569B?&style=for-the-badge&logo=Linux&logoColor=white" /> </a> </div>
-SOAR & Case Management
+
+## SOAR & Case Management
 <div> <a href="https://shuffler.io/"> <img src="https://img.shields.io/badge/-Shuffle-4B0082?&style=for-the-badge&logo=Apache%20Airflow&logoColor=white" /> </a> <a href="https://thehive-project.org/"> <img src="https://img.shields.io/badge/-TheHive-FFB400?&style=for-the-badge&logo=Hive&logoColor=black" /> </a> </div>
-Threat Intelligence
+
+## Threat Intelligence
 <div> <a href="https://www.virustotal.com/"> <img src="https://img.shields.io/badge/-VirusTotal-4285F4?&style=for-the-badge&logo=Google&logoColor=white" /> </a> </div>
-Notifications
+
 
 ## Architecture
 This project was divided into two distinct phases to demonstrate workflow reliability across different operating systems and highlight the flexibility of Wazuh for monitoring diverse endpoints. While the Windows phase focused on telemetry collection and case management, the Linux phase emphasized consistent active response.
