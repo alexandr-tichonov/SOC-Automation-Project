@@ -27,11 +27,15 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 ## SOAR & Case Management
 <div> <a href="https://shuffler.io/"> <img src="https://img.shields.io/badge/-Shuffle-4B0082?&style=for-the-badge" /> </a> <a href="https://thehive-project.org/"> <img src="https://img.shields.io/badge/-TheHive-FFB400?&style=for-the-badge" /> </a> </div>
 
-## Cloud Provider
-<div> <a href="https://www.digitalocean.com/"> <img src="https://img.shields.io/badge/-DigitalOcean-0080FF?&style=for-the-badge" /> </a> </div>
-
 ## Threat Intelligence
 <div> <a href="https://www.virustotal.com/"> <img src="https://img.shields.io/badge/-VirusTotal-394EFF?&style=for-the-badge&logo=virustotal&logoColor=white" /> </a> </div>
+
+## Cloud Provider
+<div>
+  <a href="https://www.digitalocean.com/">
+    <img src="https://img.shields.io/badge/-DigitalOcean-0080FF?&style=for-the-badge&logo=digitalocean&logoColor=white" />
+</a>
+</div>
 
 ## Architecture
 This project was divided into two distinct phases to demonstrate workflow reliability across different operating systems and highlight the flexibility of Wazuh for monitoring diverse endpoints. While the Windows phase focused on telemetry collection and case management, the Linux phase emphasized consistent active response.
