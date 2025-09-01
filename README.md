@@ -15,13 +15,12 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 This project was divided into two distinct phases to demonstrate workflow reliability across different operating systems and highlight the flexibility of Wazuh for monitoring diverse endpoints. While the Windows phase focused on telemetry collection and case management, the Linux phase emphasized consistent active response.
 
 Below is a high level overview visual representation of the intended end-to-end workflow: 
-<div align="center">
+<div align="center" style="border: 2px solid #ccc; padding: 4px;">
   <img src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5"
        alt="A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive."
-       style="border: 2px solid #ccc; padding: 4px; max-width: 100%; height: auto;">
+       width="512" height="491">
   <p><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></p>
 </div>
-
 
 
 **Phase 1:**
@@ -31,7 +30,7 @@ During the first phase, a **Windows** machine was hosted on the cloud, and would
 Wazuh alerts with a level 5 or greater would then be sent to **Shuffle** via a Webhook, from where they would be automatically queried by **VirusTotal** to enrich suspicious indicators of compromise (IoCs). Enriched alerts were then pushed to **TheHive**, creating structured cases for investigation. Finally, an email would automatically be sent summarizing the event and instructing the analyst to log in to the hive for further investigation. 
 
 
-**Phase 2**
+**Phase 2:**
 
 For the second phase, the workflow was recreated on an **Ubuntu** host rather than Windows. This choice was made because active response was far more consistent on Linux, especially when triggering automated actions such as blocking IP addresses. 
 
