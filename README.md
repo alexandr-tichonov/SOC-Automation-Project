@@ -15,20 +15,12 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 This project was divided into two distinct phases to demonstrate workflow reliability across different operating systems and highlight the flexibility of Wazuh for monitoring diverse endpoints. While the Windows phase focused on telemetry collection and case management, the Linux phase emphasized consistent active response.
 
 Below is a high level overview visual representation of the intended end-to-end workflow: 
-<p align="center">
-  <table>
-    <tr>
-      <td style="border: 2px solid #ccc; border-radius: 8px; padding: 4px;">
-        <img src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5" 
-             alt="unnamed (1)" 
-             width="512" height="491" />
-      </td>
-    </tr>
-    <tr>
-      <td align="center"><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></td>
-    </tr>
-  </table>
-</p>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5"
+       alt="A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive."
+       style="border: 2px solid #ccc; padding: 4px; max-width: 100%; height: auto;">
+  <p><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></p>
+</div>
 
 
 **Phase 1:**
