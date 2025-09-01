@@ -23,13 +23,16 @@ Below is a high level overview visual representation of the intended end-to-end 
 </div>
 
 
+
 **Phase 1:**
+
 During the first phase, a **Windows** machine was hosted on the cloud, and would have **Sysmon** installed in order to collect detailed event logs. This machine would serve as an endpoint from which a **Wazuh Agent** would forward all telemetry to the **Wazuh Manager** for correlation and alerting. 
 
 Wazuh alerts with a level 5 or greater would then be sent to **Shuffle** via a Webhook, from where they would be automatically queried by **VirusTotal** to enrich suspicious indicators of compromise (IoCs). Enriched alerts were then pushed to **TheHive**, creating structured cases for investigation. Finally, an email would automatically be sent summarizing the event and instructing the analyst to log in to the hive for further investigation. 
 
 
 **Phase 2**
+
 For the second phase, the workflow was recreated on an **Ubuntu** host rather than Windows. This choice was made because active response was far more consistent on Linux, especially when triggering automated actions such as blocking IP addresses. 
 
 This time, Wazuh would only send repeated failed SSH login attempts to Shuffle via a Webhook, Shuffle would query VirusTotal to check the reputation of the source IP address, and send an email notification prompting the analyst to confirm or decline the blocking of a suspicious IP address. If confirmed, Shuffle obtained a valid token via a GET API request and then issued a PUT HTTP request to initiate the blocking action.
