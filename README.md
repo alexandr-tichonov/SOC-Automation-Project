@@ -10,5 +10,5 @@ The final objective of this project was to employ a vast assortment of scalable 
 
 Additionally, this workflow was designed to notify the analyst of malicious activity via email and prompt them to take responsive action, such as blocking IP addresses.    
 
-## Architecture Overview
+
 
