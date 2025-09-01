@@ -24,7 +24,6 @@ Below is a high level overview visual representation of the intended end-to-end 
 
 <p align="center"><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></p>  
 
----
 **Phase 1:**
 During the first phase, a **Windows** machine was hosted on the cloud, and would have **Sysmon** installed in order to collect detailed event logs. This machine would serve as an endpoint from which a **Wazuh Agent** would forward all telemetry to the **Wazuh Manager** for correlation and alerting. 
 
