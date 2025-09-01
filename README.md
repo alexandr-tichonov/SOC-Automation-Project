@@ -16,18 +16,26 @@ This project was divided into two distinct phases to demonstrate workflow reliab
 
 Below is a high level overview visual representation of the intended end-to-end workflow: 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5" 
-       alt="unnamed (1)" 
-       width="512" height="491" 
-       style="border: 2px solid #ccc; border-radius: 8px;" />
+  <table>
+    <tr>
+      <td style="border: 2px solid #ccc; border-radius: 8px; padding: 4px;">
+        <img src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5" 
+             alt="unnamed (1)" 
+             width="512" height="491" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></td>
+    </tr>
+  </table>
 </p>
 
-<p align="center"><em>Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.</em></p>  
 
 **Phase 1:**
 During the first phase, a **Windows** machine was hosted on the cloud, and would have **Sysmon** installed in order to collect detailed event logs. This machine would serve as an endpoint from which a **Wazuh Agent** would forward all telemetry to the **Wazuh Manager** for correlation and alerting. 
 
 Wazuh alerts with a level 5 or greater would then be sent to **Shuffle** via a Webhook, from where they would be automatically queried by **VirusTotal** to enrich suspicious indicators of compromise (IoCs). Enriched alerts were then pushed to **TheHive**, creating structured cases for investigation. Finally, an email would automatically be sent summarizing the event and instructing the analyst to log in to the hive for further investigation. 
+
 
 **Phase 2**
 For the second phase, the workflow was recreated on an **Ubuntu** host rather than Windows. This choice was made because active response was far more consistent on Linux, especially when triggering automated actions such as blocking IP addresses. 
