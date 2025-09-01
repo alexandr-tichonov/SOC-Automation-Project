@@ -16,6 +16,7 @@ This project was divided into two distinct phases to demonstrate workflow reliab
 
 Below is a high level overview visual representation of the intended end-to-end workflow: 
 <img width="512" height="491" alt="unnamed (1)" src="https://github.com/user-attachments/assets/bd0951da-d06b-4dfe-800c-cd3a45e6c8b5" />
+
 *Figure 1: A diagram depicting the intended end-to-end workflow using Wazuh, Shuffle, and TheHive.* 
 
 **Phase 1:**
