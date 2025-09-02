@@ -100,7 +100,21 @@ Both the configuration file and the Sysmon binary were placed in the same direct
 ## Setting up and Configuring Wazuh
 In order to successfully setup a "Security Information and Event Management" (SIEM) system two core components are required, "Agents" and a "Manager". "Agents", are lightweight software programs installed on endpoints that collect and forward security logs, while the manager acts as a central server that recieves logs from agents, and generates corresponding alerts. 
 
-In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent, thus the first step to set up the Wazuh SIEM was to install and configure Wazauh on the Ubuntu server. 
+In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent.
+the first step to set up the Wazuh SIEM was to log onto the Ubuntu server via SSH. 
+
+
+```
+ssh root@<ip address>
+```
+
+  <div align="center" style="border: 2px solid #ccc; padding: 4px;">
+    <img width="687" height="159" alt="5" src="https://github.com/user-attachments/assets/65516bd7-f621-4d41-b243-6a2869f64406" />
+    <p><em>Figure 4: A screenshot of a successful ssh logon onto the Ubuntu server. </em></p>
+  </div>
+
+  
+
 
 
 
