@@ -184,7 +184,7 @@ net start wazuhsvc
 ```
 This ensured that all Sysmon-generated security events were ingested by the Wazuh agent and forwarded to the Manager for correlation and alerting.
 
-## Setting up and Configuring TheHive 
+## Setting up TheHive 
 With a log collection system in place, a case management system would now have to be implemented using **TheHive**, which is an open-source Security Incident Response Platform (SIRP) used for alert tracking and case management. 
 
 It requires a few core dependencies being: 
@@ -225,6 +225,34 @@ The ```systemctl status cassandra``` command was run to verify if Cassandra was 
   <p><em>Figure 15: A screenshot of a successful Cassandra installation. </em></p> 
 </div> 
 
+After installation Cassandra needed to be configured to properly communicate with TheHive. This was done by modifying the ```cassandra.yaml``` configuration file located in the ```/etc/cassandra``` directory. 
+```
+nano /etc/cassandra/cassandra.yaml
+```
+
+Within the configuration file the ```listen_address```, was set as TheHive server's public IP address. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="803" height="254" alt="blurred-19 png" src="https://github.com/user-attachments/assets/177e2577-7cc3-4a35-a3ce-a2b50c272e7c" />
+  <p><em>Figure 16: The listen_address parameter was modified.</em></p> 
+</div> 
+
+The same public IP address would be entered for both the ```rpc_address``` and the ```seeds``` parameters. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="801" height="193" alt="blurred-20 png" src="https://github.com/user-attachments/assets/72a9ca7b-8e64-45ae-8359-5219bee24fd4" />
+  <p><em>Figure 17: The rpc_address parameter was modified.</em></p> 
+</div> 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="752" height="218" alt="blurred-21 png" src="https://github.com/user-attachments/assets/27a01807-8374-4906-acc1-73cd80b18610" />
+  <p><em>Figure 18: The seeds parameter was modified.</em></p> 
+</div> 
+
+Cassandra was then restarted with:
+```
+systemctl restart casssandra
+```
+
+
 The final prerequisite was Elasticsearch which, TheHive uses as a search and indexing engine. The installation was performed by adding the official Elasticsearch repository and installing it, using the following commands:
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |  sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
@@ -243,10 +271,58 @@ The following entry was added in the jvm.options file, this limited Elasticsearc
 The ```systemctl status elasticsearch``` command was run to verify if Elasticsearch was successfully installed and running.
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="814" height="332" alt="17" src="https://github.com/user-attachments/assets/7c23288d-e803-4be1-8bc6-bf10ee5f3177" />
-  <p><em>Figure 16: A screenshot of a successful Elastic Search installation. </em></p> 
+  <p><em>Figure 19: A screenshot of a successful Elastic Search installation. </em></p> 
 </div> 
 
+Just like with Cassandra additional configuration was required so that TheHive could connect and index data properly, this was done by navigating to the ```/etc/elasticsearch``` directory and editing the ```elasticsearch.yml``` configuration file. 
+```
+nano /etc/elasticsearch/elasticsearch.yml
+```
+Within the configuration file the ```network.host```, was set as TheHive server's public IP address, ensuring Elasticsearch could listen for connections externally. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="780" height="130" alt="blurred-22 png" src="https://github.com/user-attachments/assets/5e667b11-7c91-468f-92c1-1beb50161bb7" />
+  <p><em>Figure 20: The network.host parameter was modified. </em></p> 
+</div> 
 
+Within the configuration file the ```cluster.initial_master_nodes```, was configured with a single entry ```node-1```, since this project used only one node. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="805" height="124" alt="23" src="https://github.com/user-attachments/assets/1f0a9f06-5006-44f6-940b-8a517c1abc0c" />
+  <p><em>Figure 21: The cluster.initial_master_nodes parameter was modified. </em></p> 
+</div> 
+
+Elasticsearch  was then restarted with:
+```
+systemctl restart elasticsearch
+```
+
+With all the pre-requisite installation and configuration complete the last step was to install TheHive. The package and its signatures were retrieved with the following commands:
+```
+wget -O /tmp/thehive_5.2.16-1_all.deb \
+  https://thehive.download.strangebee.com/5.2/deb/thehive_5.2.16-1_all.deb
+wget -O /tmp/thehive_5.2.16-1_all.deb.sha256 \
+  https://thehive.download.strangebee.com/5.2/sha256/thehive_5.2.16-1_all.deb.sha256
+wget -O /tmp/thehive_5.2.16-1_all.deb.asc \
+  https://thehive.download.strangebee.com/5.2/asc/thehive_5.2.16-1_all.deb.asc
+```
+The download was then verified for integrity and authenticity using both a SHA-256 checksum and GPG signature verification:
+```
+sha256sum /tmp/thehive_5.2.16-1_all.deb
+
+wget -O /tmp/strangebee.gpg \
+  https://keys.download.strangebee.com/latest/gpg/strangebee.gpg
+gpg --import /tmp/strangebee.gpg
+gpg --verify /tmp/thehive_5.2.16-1_all.deb.asc \
+             /tmp/thehive_5.2.16-1_all.deb
+```
+Finally, TheHive was installed with: 
+```
+apt-get install /tmp/thehive_5.2.16-1_all.deb
+```
+The ```systemctl status thehive``` command was run to verify if TheHive was successfully installed and running.
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="814" height="332" alt="18" src="https://github.com/user-attachments/assets/5dfbd509-4a98-43fa-b536-f9faf10d8b68" />
+  <p><em>Figure 22: A screenshot of a successful TheHive installation. </em></p> 
+</div> 
 
 
 
