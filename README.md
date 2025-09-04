@@ -98,9 +98,12 @@ Both the configuration file and the Sysmon binary were placed in the same direct
   </div>
 
 ## Setting up and Configuring Wazuh
-In order to successfully setup a "Security Information and Event Management" (SIEM) system two core components are required, "Agents" and a "Manager". "Agents", are lightweight software programs installed on endpoints that collect and forward security logs, while the manager acts as a central server that recieves logs from agents, and generates corresponding alerts. In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent. the first step to set up the Wazuh SIEM was to log onto the Ubuntu server via SSH.
-ssh root@<ip address> 
+In order to successfully setup a "Security Information and Event Management" (SIEM) system two core components are required, "Agents" and a "Manager". "Agents", are lightweight software programs installed on endpoints that collect and forward security logs, while the "Manager" acts as a central server that recieves logs from agents, and generates corresponding alerts. 
 
+In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent. the first step to set up the Wazuh SIEM was to log onto the Ubuntu server via SSH.
+```
+ssh root@<ip address> 
+```
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> <img width="687" height="159" alt="5" src="https://github.com/user-attachments/assets/65516bd7-f621-4d41-b243-6a2869f64406" /> 
   <p><em>Figure 4: A screenshot of a successful ssh logon onto the Ubuntu server. </em></p> 
 </div> 
@@ -150,9 +153,61 @@ net start wazuhsvc
 Going back to the dashboard the prompt to deploy a new agent was now replaced with a visual representation, thus confirming that the agent setup was indeed successful. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> <img width="1159" height="299" alt="12" src="https://github.com/user-attachments/assets/dfee3c98-9cd5-42f2-b150-2beefb9843ac" /> <p><em>Figure 11: A visual representaion showing an active agent being operational. </em></p> </div> 
-  
-  With the agent successfully set up, the next step was to configure Wazuh to indgest event logs from Sysmon.
-  
+
+With the Wazuh agent successfully deployed on the Windows host, the next step was to ensure that Sysmon event logs were forwarded to the Wazuh Manager for analysis. By default, the Wazuh agent collects standard Windows event logs, but additional configuration is required to include Sysmon’s dedicated log channel.
+
+In order to do so the ```ossec.conf``` configuration file located in the ```C:\Program Files (x86)\ossec-agent``` directory was modified via a text editor. To specify the Sysmon channel as a monitored log source, Sysmons ```Full Name``` must be specified which can be found in Microsofts Event Viewer, under the "Properties Section". 
+
+Sysmons "Full Name" was determined to be: ```Microsoft-Windows-Sysmon/Operational``` 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+<img width="628" height="432" alt="13" src="https://github.com/user-attachments/assets/2d3f8510-5bc0-4a39-a84f-ce3de2c5590d" />
+  <p><em>Figure 12: A screenshot of Sysmons Full Name listed in Windows Event Manager </em></p> 
+</div> 
+
+A new ```<localfile>``` block entry was then added into the ```ossec.conf``` configuration file:
+```
+<localfile>
+  <location>Microsoft-Windows-Sysmon/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="771" height="410" alt="14" src="https://github.com/user-attachments/assets/09c42066-dbfe-4644-bf98-bc7cc7450849" />  
+  <p><em>Figure 13: A screenshot of the entry made in the ossec.conf configuration file. </em></p> 
+</div> 
+
+After saving the configuration file, the Wazuh service was restarted to apply the changes:  
+```
+net stop wazuhsvc
+net start wazuhsvc
+```
+This ensured that all Sysmon-generated security events were ingested by the Wazuh agent and forwarded to the Manager for correlation and alerting.
+
+## Setting up and Configuring TheHive 
+With a log collection system in place, a case management system would now have to be implemented using **TheHive**, which is an open-source Security Incident Response Platform (SIRP) used for alert tracking and case management. 
+
+It requires a few core dependencies being: 
+"Java" - which runs TheHive application, "Cassandra" - which stores case data and observables, and "Elasticsearch" - which enables the searching and indexing of incdents. 
+
+
+Before installing anything on the server, an SSH connection to TheHive server was established and preliminary dependencies for "TheHive 5", were installed. 
+```
+apt install wget gnupg apt-transport-https git ca-certificates ca-certificates-java curl  software-properties-common python3-pip lsb-release
+```
+
+The first step in preparing the server for TheHive was to install a supported Java runtime environment, in this case the "Amazon Corretto 11 distribution" was selected.
+The following commands were executed to add the Corretto repository, update packages, and install Java 11:
+```
+wget -qO- https://apt.corretto.aws/corretto.key | sudo gpg --dearmor  -o /usr/share/keyrings/corretto.gpg
+echo "deb [signed-by=/usr/share/keyrings/corretto.gpg] https://apt.corretto.aws stable main" |  sudo tee -a /etc/apt/sources.list.d/corretto.sources.list
+sudo apt update
+sudo apt install java-common java-11-amazon-corretto-jdk
+echo JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto" | sudo tee -a /etc/environment 
+export JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto"
+```
+
+
 
 
 
