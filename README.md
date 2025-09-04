@@ -249,7 +249,7 @@ The same public IP address would be entered for both the ```rpc_address``` and t
 
 Cassandra was then restarted with:
 ```
-systemctl restart casssandra
+systemctl restart cassandra
 ```
 
 
@@ -324,6 +324,13 @@ The ```systemctl status thehive``` command was run to verify if TheHive was succ
   <p><em>Figure 22: A screenshot of a successful TheHive installation. </em></p> 
 </div> 
 
+With everything successfully setup the final step was to configure TheHive itself. 
+First, ownership of TheHive's ```/opt/thp/thehive``` installation directory  was set to the dedicated ```thehive``` user and group for security and proper service execution. 
+```
+chown -R thehive:thehive /opt/thp/thehive
+```
+
+Next, TheHive's ```application.conf``` configuration file was configured by modifying the ```hostname```, ```cluster.name```,```index.search.hostname```, and ```application.baseUrl``` parameters. 
 
 
 
