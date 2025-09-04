@@ -98,21 +98,60 @@ Both the configuration file and the Sysmon binary were placed in the same direct
   </div>
 
 ## Setting up and Configuring Wazuh
-In order to successfully setup a "Security Information and Event Management" (SIEM) system two core components are required, "Agents" and a "Manager". "Agents", are lightweight software programs installed on endpoints that collect and forward security logs, while the manager acts as a central server that recieves logs from agents, and generates corresponding alerts. 
+In order to successfully setup a "Security Information and Event Management" (SIEM) system two core components are required, "Agents" and a "Manager". "Agents", are lightweight software programs installed on endpoints that collect and forward security logs, while the manager acts as a central server that recieves logs from agents, and generates corresponding alerts. In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent. the first step to set up the Wazuh SIEM was to log onto the Ubuntu server via SSH.
+ssh root@<ip address> 
 
-In the case of this project a cloud hosted Ubuntu server would act as the Wazuh manager while the afformentioned Windows virtual machine would facilitate the Wazuh agent.
-the first step to set up the Wazuh SIEM was to log onto the Ubuntu server via SSH. 
-
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> <img width="687" height="159" alt="5" src="https://github.com/user-attachments/assets/65516bd7-f621-4d41-b243-6a2869f64406" /> 
+  <p><em>Figure 4: A screenshot of a successful ssh logon onto the Ubuntu server. </em></p> 
+</div> 
+After a successfull login the system was updated and a Wazuh package version of 4.7.0 was added and installed on the system. Once the installation completed, the provided admin credentials were promptly noted.
 
 ```
-ssh root@<ip address>
+curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
+sudo bash ./wazuh-install.sh -a
 ```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="813" height="327" alt="6" src="https://github.com/user-attachments/assets/6d3d42dd-ac5b-4231-8f0b-7311a6763b6a" /> 
+  <p><em>Figure 5: A screenshot showcasing the installation of Wazuh . </em></p> </div> <br></br> <div align="center" style="border: 2px solid #ccc; padding: 4px;"> <img width="811" height="132" alt="7-" src="https://github.com/user-attachments/assets/96bd3311-774c-4461-a83f-d480ac944a68" /> <p><em>Figure 6: A screenshot of the admin credentials provided. </em></p> </div> 
 
-  <div align="center" style="border: 2px solid #ccc; padding: 4px;">
-    <img width="687" height="159" alt="5" src="https://github.com/user-attachments/assets/65516bd7-f621-4d41-b243-6a2869f64406" />
-    <p><em>Figure 4: A screenshot of a successful ssh logon onto the Ubuntu server. </em></p>
-  </div>
+To access the Wazuh dashboard the Wazuh managers public IP address was inputted via a web browser on port ```443``` and the previously provided admin credentials were used for the login panel. ```https://<wazuh-dashboard-ip>:443```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="689" height="493" alt="8(1)" src="https://github.com/user-attachments/assets/0d14f466-c775-428c-b548-b045ccef2539" /> 
+  <p><em>Figure 7: A screenshot of the Wazuh dashboards login panel. </em></p> 
+</div>
 
+After successfully setting up the Wazuh Manager, the next step was to install a Wazuh agent on the Windows virtual machine. This was done by first clicking on the "Deploy New Agent" option available on the Wazuh dashboard. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="577" height="295" alt="9" src="https://github.com/user-attachments/assets/80ce89a1-a58d-46b4-aceb-5bdee700695b" /> 
+  <p><em>Figure 8: A screenshot showcasing the "Deploy New Agent" option on the Wazuh Dashboard. </em></p> </div> 
+  
+  From the options presented, a Windows operating system was selected, with the server address being the Wazuh managers public IP address, the agent iteself was named as "Agent-2". 
+  
+  
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1599" height="1108" alt="blurred-e png" src="https://github.com/user-attachments/assets/362192dc-b2d1-4f35-989c-b69d7098cc39" /> <p><em>Figure 9: A screenshot of the options configured during agent setup. </em></p> 
+</div> 
+
+The Wazuh manager would then provide an installation command, that should be executed via PowerShell as administrator on the Windows virtual machine. Should the command not succeed it is possible to break it into two seperate segments.
+```
+Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.12.0-1.msi -OutFile $env:tmp\wazuh-agent
+msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER='<IP address>' WAZUH_AGENT_NAME='<Agent Name>'
+```
+Once the command ran with no errors, the Wazuh service was started by using the following command:
+
+```
+net start wazuhsvc
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="941" height="127" alt="blurred-11 png" src="https://github.com/user-attachments/assets/df6ee3dd-a036-4d03-b470-3b328446a8ed" /> 
+  <p><em>Figure 10: A screenshot showcasing a successful agent installation. </em></p> </div> 
+
+Going back to the dashboard the prompt to deploy a new agent was now replaced with a visual representation, thus confirming that the agent setup was indeed successful. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> <img width="1159" height="299" alt="12" src="https://github.com/user-attachments/assets/dfee3c98-9cd5-42f2-b150-2beefb9843ac" /> <p><em>Figure 11: A visual representaion showing an active agent being operational. </em></p> </div> 
+  
+  With the agent successfully set up, the next step was to configure Wazuh to indgest event logs from Sysmon.
   
 
 
