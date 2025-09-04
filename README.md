@@ -206,6 +206,29 @@ sudo apt install java-common java-11-amazon-corretto-jdk
 echo JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto" | sudo tee -a /etc/environment 
 export JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto"
 ```
+One can easily check if Java was successfully installed by running the ```java --version``` command.
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="941" height="127" alt="15" src="https://github.com/user-attachments/assets/efb55488-a246-479b-83c4-ab13a3d64809" />
+  <p><em>Figure 14: A screenshot show a successful installation of the Java dependency. </em></p> 
+</div> 
+
+Next, Apache Cassandra was installed to serve as TheHive's database. The installation was complete by adding the Cassandra repository and installing the service, using the following commands:
+```
+wget -qO -  https://downloads.apache.org/cassandra/KEYS | sudo gpg --dearmor  -o /usr/share/keyrings/cassandra-archive.gpg
+echo "deb [signed-by=/usr/share/keyrings/cassandra-archive.gpg] https://debian.cassandra.apache.org 40x main" |  sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+sudo apt update
+sudo apt install cassandra
+```
+The ```systemctl status cassandra``` command was run to verify if Cassandra was successfully installed. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="771" height="410" alt="16" src="https://github.com/user-attachments/assets/991a7c32-0c70-45e6-8a97-630ec6a7822a" />
+  <p><em>Figure 15: A screenshot of a successful Cassandra installation. </em></p> 
+</div> 
+
+
+
+
+
 
 
 
