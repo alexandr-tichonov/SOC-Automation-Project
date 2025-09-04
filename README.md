@@ -208,7 +208,7 @@ export JAVA_HOME="/usr/lib/jvm/java-11-amazon-corretto"
 ```
 One can easily check if Java was successfully installed by running the ```java --version``` command.
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
-  <img width="941" height="127" alt="15" src="https://github.com/user-attachments/assets/efb55488-a246-479b-83c4-ab13a3d64809" />
+  <img width="812" height="88" alt="15-" src="https://github.com/user-attachments/assets/c7aea371-a154-4288-b451-0d170aa0b340" />
   <p><em>Figure 14: A screenshot show a successful installation of the Java dependency. </em></p> 
 </div> 
 
@@ -221,9 +221,34 @@ sudo apt install cassandra
 ```
 The ```systemctl status cassandra``` command was run to verify if Cassandra was successfully installed. 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
-  <img width="771" height="410" alt="16" src="https://github.com/user-attachments/assets/991a7c32-0c70-45e6-8a97-630ec6a7822a" />
+  <img width="814" height="332" alt="16-" src="https://github.com/user-attachments/assets/d715e6ac-ab9c-479c-9fd3-5bcd7edae21a" />
   <p><em>Figure 15: A screenshot of a successful Cassandra installation. </em></p> 
 </div> 
+
+The final prerequisite was Elasticsearch which, TheHive uses as a search and indexing engine. The installation was performed by adding the official Elasticsearch repository and installing it, using the following commands:
+```
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |  sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+sudo apt-get install apt-transport-https
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" |  sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt update
+sudo apt install elasticsearch
+```
+During setup, Elasticsearch failed to start due to heap memory issues, thus additional parameters were added by configuring a custom jvm.options file created in the ```/etc/elasticsearch/jvm.options.d``` directory.
+The following entry was added in the jvm.options file, this limited Elasticsearch's heap memory allocation to 2GB.  
+```
+-Dlog4j2.formatMsgNoLookups=true
+-Xms2g
+-Xmx2g
+```
+The ```systemctl status elasticsearch``` command was run to verify if Elasticsearch was successfully installed and running.
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="814" height="332" alt="17" src="https://github.com/user-attachments/assets/7c23288d-e803-4be1-8bc6-bf10ee5f3177" />
+  <p><em>Figure 16: A screenshot of a successful Elastic Search installation. </em></p> 
+</div> 
+
+
+
+
 
 
 
