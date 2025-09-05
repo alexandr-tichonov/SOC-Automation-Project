@@ -378,6 +378,35 @@ Once successfully logged in a new organization was created named ```AVILETI``` a
 </div> 
 
 ## Creating Custom Alerts with Wazuh
+By default, Wazuh only records events that trigger a rule or alert. To capture all raw logs (including those that do not match any existing rules), Wazuh was reconfigured on the Wazuh manager machine. 
+
+This was done by editing the Wazuh managers ```ossec.conf``` configuration file, and modifying the ```<logall>``` and ```<logall_json>``` parameters under the ```<ossec_config>``` block to ```yes```. 
+```
+nano /var/ossec/etc/ossec.conf
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="744" height="313" alt="30" src="https://github.com/user-attachments/assets/f1c1f201-8b2d-478d-9db4-15f7826d03ef" />
+  <p><em>Figure 29: logall and logall_json parameters were modified.  </em></p> 
+</div>
+The Wazuh manager was then restarted by running: 
+
+```
+systemctl restart wazuh-manager.service
+```
+Once Wazuh was configured to log all events, the raw data began appearing in the ```/var/ossec/logs/archives``` directory as archive logs. Unfortunatley Wazuh, by default, does not ingest archive logs simply leaving them stored for future reference. 
+
+To enable ingestion of archived logs, the Filebeat configuration file ```filebeat.yml``` was updated, by modifying the ```archives:``` ```enabled:``` parameter to ```true```.
+```
+nano /etc/filebeat/filebeat.yml
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="722" height="278" alt="32" src="https://github.com/user-attachments/assets/09569f4d-6e6b-4e3c-a889-647e2174919a" />
+  <p><em>Figure 30: The archives: enabled: parameter was modified. </em></p> 
+</div>
+
+The Filebeat service was then restarted to implement the change. 
+
+
 
 
 
