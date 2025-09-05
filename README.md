@@ -407,6 +407,27 @@ nano /etc/filebeat/filebeat.yml
 The Filebeat service was then restarted to implement the change. 
 
 
+With the Filebeat now ingesting the archive logs, a new **index pattern** was created in the Wazuh web interface to visualize this data. The index pattern was defined as:
+```wazuh-archives-*```.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1198" height="464" alt="33" src="https://github.com/user-attachments/assets/bb3732f3-1c94-4a67-9ac1-948c7409a0dc" />
+  <p><em>Figure 31: A screenshot showing the previously available index patterns. </em></p> 
+</div>
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1200" height="536" alt="34" src="https://github.com/user-attachments/assets/90ebd742-c4a4-4019-a4f7-40af59d411fe" />
+  <p><em>Figure 32: A screenshot showing the index pattern definition. </em></p> 
+</div>
+
+
+
+
+
+
+
+
+
 
 
 
