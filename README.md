@@ -331,6 +331,58 @@ chown -R thehive:thehive /opt/thp/thehive
 ```
 
 Next, TheHive's ```application.conf``` configuration file was configured by modifying the ```hostname```, ```cluster.name```,```index.search.hostname```, and ```application.baseUrl``` parameters. 
+```
+nano /etc/thehive/application.conf
+```
+The ```cluster.name``` parameter would be mactched to the clustername in Cassandra's ```cassandra.yaml``` configuration file, which was called: ```SOC Project```. The remaining ```hostname```, ```index.search.hostname```, and ```application.baseUrl``` parameters would be set as TheHives public IP address. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="640" height="407" alt="blurred-24 png" src="https://github.com/user-attachments/assets/759b7db2-2d33-4c60-be83-3aa677c0306c" />
+  <p><em>Figure 23: The hostname, cluster.name and index.search.hostname parameters were modified. </em></p> 
+</div> 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="528" height="74" alt="blurred-25 png" src="https://github.com/user-attachments/assets/6f8072b1-07eb-4203-af7b-bd8028ab3161" />
+  <p><em>Figure 24: The application.baseUrl parameter was modified. </em></p> 
+</div> 
+
+TheHive was then restarted with:
+```
+systemctl restart thehive
+```
+
+After ensuring that all three services were successfully running it was now possible to login into TheHive via web browser using TheHive's public IP and port ```9000```. 
+```
+http://<TheHive's Public IP>:9000
+```
+To login the TheHive's default credentials were used with the login being: ```admin@thehive.local``` and the password being: ```secret```.
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="2035" height="1262" alt="26-" src="https://github.com/user-attachments/assets/72994476-c158-4356-86f9-ccbffcd724e6" />  
+  <p><em>Figure 25: A screenshot of the credentials used to login to TheHive. </em></p> 
+</div> 
+
+Once successfully logged in a new organization was created named ```AVILETI``` and two accounts were created: The first account  was an analyst account which would be used for investigating events. The second account was a service account, added specifically for Shuffle to authenticate via API, this account would later be used to automate case creation in TheHive.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="939" height="421" alt="27" src="https://github.com/user-attachments/assets/8c1052f2-c02e-409c-b1d7-9fdd7368c081" />
+  <p><em>Figure 26: A screenshot showing a newly created organization. </em></p> 
+</div> 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="935" height="543" alt="28" src="https://github.com/user-attachments/assets/290f3249-f6a6-4d3f-b655-15c0ca292b5c" />
+  <p><em>Figure 27: A screenshot showing a newly created analyst account. </em></p> 
+</div> 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="934" height="511" alt="29" src="https://github.com/user-attachments/assets/8c9bcf01-3697-4e49-a94b-7bfd17068f4c" />
+  <p><em>Figure 28: A screenshot showing a newly created service account.  </em></p> 
+</div> 
+
+## Creating Custom Alerts with Wazuh
+
+
+
+
+
 
 
 
