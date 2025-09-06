@@ -420,6 +420,14 @@ With the Filebeat now ingesting the archive logs, a new **index pattern** was cr
   <p><em>Figure 32: A screenshot showing the index pattern definition. </em></p> 
 </div>
 
+Mimikatz is a well-known post-exploitation tool commonly used by attackers to extract credentials from Windows systems. Due to its prevelance in real-world intrusions, the goal of this project was to detect the execution of Mimikatz immidiatley upon launch, even when the Binary was renamed to evede simple signature based detections. 
+
+
+
+
+
+
+
 
 
 
