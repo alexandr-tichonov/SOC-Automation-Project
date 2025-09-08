@@ -458,6 +458,29 @@ From here, a new rule can be added by pasting the following XML configuration:
 </rule>
 ```
 
+Where the severity ```level``` parameter was set to ```15```, which forces the detection to be treated as a critical alert, and the ```<mitre>``` ```<id>``` was set to ```T1003```, which ties the event to  credential dumping.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="892" height="535" alt="38" src="https://github.com/user-attachments/assets/8f4f6a75-1d1a-431d-8e84-955ccdb4981b" />
+  <p><em>Figure 36: A screenshot showing the entry made in the local_rules.xml configuration file. </em></p> 
+</div>
+
+To test the effectiveness of the custom rule, ```mimikatz.exe``` was renamed to ```just a basic program.exe``` and executed on the test machine. Despite the name change, the detection rule leveraged the ```originalFileName``` parameter and triggered a critical alert.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="670" height="149" alt="39" src="https://github.com/user-attachments/assets/2e0d0c92-1f37-4a15-a6cb-b0c116688cd4" />
+  <p><em>Figure 37: A screenshot showing the renamed Mimikatz executable </em></p> 
+</div>
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1600" height="731" alt="blurred-40 png" src="https://github.com/user-attachments/assets/9a9fd28c-c35a-4ade-8723-6c94321db3af" />
+  <p><em>Figure 38: A screenshot showing the event created after Mimikatz was executed. </em></p> 
+</div>
+
+
+
+
+
 
 
 
