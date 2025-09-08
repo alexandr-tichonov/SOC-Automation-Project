@@ -422,8 +422,19 @@ With the Filebeat now ingesting the archive logs, a new **index pattern** was cr
 
 Mimikatz is a well-known post-exploitation tool commonly used by attackers to extract credentials from Windows systems. Due to its prevelance in real-world intrusions, the goal of this project was to detect the execution of Mimikatz immidiatley upon launch, even when the Binary was renamed to evede simple signature based detections. 
 
+To validate the detection capablities of the newly configured Wazuh SIEM Mimikatz was first executed under its original filename ```mimikatz.exe```. 
 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="625" height="220" alt="35" src="https://github.com/user-attachments/assets/0dc7d29a-53dc-4974-83c2-101dbfdc6421" />
+  <p><em>Figure 33: A screenshot showing the execution of mimikatz.exe </em></p> 
+</div>
 
+By searching the newly crated ```wazuh-archives-*``` index in the Wazuh web interface, two recorded events related to Mimikatz execution were observed, thus confirming that Wazuh, via Sysmon event collection, was able to capture the execution of Mimikatz. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1600" height="619" alt="blurred-36 png" src="https://github.com/user-attachments/assets/63497dd9-3513-41b3-9c77-f39f43ef4419" />
+  <p><em>Figure 34: A screenshot of two Mimikatz related events being displayed on the Wazuh dashboard. </em></p> 
+</div>
 
 
 
