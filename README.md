@@ -477,7 +477,37 @@ To test the effectiveness of the custom rule, ```mimikatz.exe``` was renamed to 
   <p><em>Figure 38: A screenshot showing the event created after Mimikatz was executed. </em></p> 
 </div>
 
+## SOC Automation with Shuffle
+The culmination of this project revolves around Shuffle, which is an open-source Security Orchestration, Automation and Response (SOAR) platform, that allows analysts to create automated workflows. In this case Shuffle was used to enrich events sent from Wazuh with virus total, which would then be sent to TheHive for further case management. 
 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1418" height="242" alt="42" src="https://github.com/user-attachments/assets/06a508f7-923c-414f-b36d-2647dc01bb31" />
+  <p><em>Figure 39: A screenshot showing the creation of a new workflow. </em></p> 
+</div>
+
+A new workflow was created in Shuffle starting with a Webhook node called ```Wazuh_Alerts```. This webhook serves as the entry point through which Wazuh will forward its alerts. 
+
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1328" height="805" alt="43" src="https://github.com/user-attachments/assets/b918aa10-6f0a-4d10-8f43-a19fd22bde39" />
+  <p><em>Figure 40: A screenshot showing a webhook node being added to a workflow.  </em></p> 
+</div>
+
+In order for Wazuh to send events to Shuffle, the generated Webhook URI was added to the Wazuh Manager's ```/var/ossec/etc/ossec.conf``` configuration file under a new ```<integration>``` tag. 
+The following entry was made in the ```ossec.conf``` file:
+```
+<integration>
+  <name>shuffle</name>
+  <hook_url>https://shuffler.io/api/v1/hooks/webhook_f8fd273e-6ac8-4338-8668-214685c799ea </hook_url>
+  <rule_id>100002</rule_id>
+  <alert_format>json</alert_format>
+</integration>
+```
+As a preliminary test the ```<rule_id>``` parameter was set to rule id ```100002```, which is a custom rule that was previously created to log Mimikatz events. This was done to initially simplfy the necessary automation required.  
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1042" height="253" alt="41" src="https://github.com/user-attachments/assets/22665404-4585-4efc-a565-05ac18559bce" />
+  <p><em>Figure 41: A screenshot showing an entry being made in the ossec.conf configuration file.  </em></p> 
+</div>
 
 
 
