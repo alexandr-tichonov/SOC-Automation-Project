@@ -436,6 +436,28 @@ By searching the newly crated ```wazuh-archives-*``` index in the Wazuh web inte
   <p><em>Figure 34: A screenshot of two Mimikatz related events being displayed on the Wazuh dashboard. </em></p> 
 </div>
 
+By closely analyzing the events generated when Mimikatz was executed, it was possible to identify a reliable field for detection which was the ```originalFileName``` field. This field retains the executable's true internal name ```mimikatz.exe``, even if the file itself is renamed by the attacker. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1451" height="680" alt="37" src="https://github.com/user-attachments/assets/160d4bff-6f58-4b8f-85f1-16eceaa4d0eb" />
+  <p><em>Figure 35: A screenshot showing the orginalFileName parameter being displayed within an alert. </em></p> 
+</div>
+
+By utilizing the ```originalFileName``` field, a custom Wazuh rule could be created via the web interface by navigating to **Server management → Rules → Manage rules files → Custom rules** and editing the ```local_rules.xml``` configuration file.  
+
+From here, a new rule can be added by pasting the following XML configuration:
+
+```
+<rule id="100002" level="15">
+  <if_group>sysmon_event1</if_group>
+  <field name="win.eventdata.originalFileName" type="pcre2">(?i)\\mimikatz\.exe</field>
+  <description>Mimikatz was detected!</description>
+  <mitre>
+    <id>T1003</id>
+  </mitre>
+</rule>
+```
+
 
 
 
