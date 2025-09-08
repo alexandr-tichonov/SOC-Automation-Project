@@ -509,7 +509,24 @@ As a preliminary test the ```<rule_id>``` parameter was set to rule id ```100002
   <p><em>Figure 41: A screenshot showing an entry being made in the ossec.conf configuration file.  </em></p> 
 </div>
 
+Wazuh manager was then restarted by running:
+```
+systemctl restart wazuh-manager.service
+```
 
+The Webhook URI was then started and Mimikatz was executed on the Windows virtual machine to generate a Mimikatz related alert. Shortly after runnning the workflow Shuffle successfully recieved the alert from Wazuh which was now displayed via its web interface. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="884" height="466" alt="44" src="https://github.com/user-attachments/assets/2fc37cce-9906-4a24-b8e5-86972da846f0" />
+  <p><em>Figure 42: A screenshot showing a Mimikatz related alert being displayed via Shuffle's web interface.  </em></p> 
+</div>
+
+Inspecting the raw alert data inside Shuffle revealed several useful fields, including a ```hashes``` parameter. The **SHA256 hash** looked like a promising field that can later be used for enrichment via **VirusTotal**. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="779" height="237" alt="45" src="https://github.com/user-attachments/assets/75f664a3-56b9-4845-9261-9772af22af22" />
+  <p><em>Figure 43: A screenshot of additional Mimikatz related event parameters. </em></p> 
+</div>
 
 
 
