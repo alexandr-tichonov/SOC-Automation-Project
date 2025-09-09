@@ -544,6 +544,29 @@ SHA256=([0-9A-Fa-f]{64})
   <p><em>Figure 44: A screenshot of the newly modified SHA256-Regex node.  </em></p> 
 </div>
 
+After rerunning the workflow and executing mimikatz on the Windows virtual machine the SHA256 hash value was successfully parsed, (as shown in Shuffles output). 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="898" height="538" alt="48" src="https://github.com/user-attachments/assets/bd9c0da1-5e47-4023-98b3-e53c234d1fa8" />
+  <p><em>Figure 45: A successfully parsed SHA256 hash value. </em></p> 
+</div>
+
+The VirusTotal node was then added to Shuffle's workflow with the ```Find actions``` field being set to the ```Get a hash report``` parameter. Additionally the ```$sha256-regex.group_0.#``` execution argument was added in the ```Id``` field to interpret the newly parsed SHA256 value.  
+
+Finally Shuffle would authenticate to VirusTotal using an API key which is given after successfully creating a VirusTotal account.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1478" height="854" alt="49" src="https://github.com/user-attachments/assets/3e585fa7-14f0-404b-bf73-5e7c28240f2a" />
+  <p><em>Figure 46: A screenshot of a newly configured VirusTotal node. </em></p> 
+</div>
+
+
+
+
+
+
+
+
 
 
 
