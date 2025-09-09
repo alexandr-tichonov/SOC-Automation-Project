@@ -560,6 +560,13 @@ Finally Shuffle would authenticate to VirusTotal using an API key which is given
   <p><em>Figure 46: A screenshot of a newly configured VirusTotal node. </em></p> 
 </div>
 
+With VirusTotal fully integrated, the Shuffle workflow was rerun. The SHA256 hash extracted from the Mimikatz alert was successfully sent to VirusTotal, which would return an enriched response. This response would later be used for case management with TheHive. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="830" height="355" alt="50" src="https://github.com/user-attachments/assets/0c1bfec5-fca5-46b4-867d-b29c44c7df2c" />
+  <p><em>Figure 47: A screenshot of the response sent from VirusTotal. </em></p> 
+</div>
+
 
 
 
