@@ -528,6 +528,33 @@ Inspecting the raw alert data inside Shuffle revealed several useful fields, inc
   <p><em>Figure 43: A screenshot of additional Mimikatz related event parameters. </em></p> 
 </div>
 
+**Enrichment with Virus Total**: When an alert is recieved, the raw data displayed is often not enough to immidiatley understand the threat. Enrichment adds context through the correlation of data with external threat intelligence sources, thus helping analysts differentiate false positives from malicious indicators.   
+
+For this project, the use of the ```hashes``` parameter would be ideal for reputation checks on VirusTotal as the **SHA256** hash serves as a unique identifier for executables and remains unchanged regardless if a file is renamed or not.  
+
+In order to successfully parse the **SHA256** parameter from the ```hashes``` field the ```Change Me``` node was modified in the Shuffle workflow. The ```Find actions``` field was configured as a ```Regex capture group```, with the ```Input data``` argument being: ```$exec.text.win.eventdata.hashes```. 
+
+Finally the following entry was added in the corresponding ```Regex``` field: 
+```
+SHA256=([0-9A-Fa-f]{64})
+```
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1146" height="757" alt="47" src="https://github.com/user-attachments/assets/e62445d2-789c-4374-b763-e0a440406fcf" />
+  <p><em>Figure 44: A screenshot of the newly modified SHA256-Regex node.  </em></p> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
