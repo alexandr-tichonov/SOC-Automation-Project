@@ -567,6 +567,8 @@ With VirusTotal fully integrated, the Shuffle workflow was rerun. The SHA256 has
   <p><em>Figure 47: A screenshot of the response sent from VirusTotal. </em></p> 
 </div>
 
+**Integrating TheHive into Shuffle**: 
+
 
 
 
