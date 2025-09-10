@@ -618,6 +618,22 @@ This confirmed that Shuffle was successfully automating the process of receiving
 </div>
 
 
+**Integrating email notifications**: 
+The final step was to create an email notification system where the analyst can be immidiatley notified of any suspicious alerts. To do so an email node would be dragged and connected directly after the VirusTotal enrichment. The ```Recipient```, ```Subject```, and ```Body``` fields were customized to pass along relevant information regarding the alert. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1127" height="789" alt="blurred-57 png" src="https://github.com/user-attachments/assets/9c590c00-dec4-4033-8f13-a080234027d4" />
+  <p><em>Figure 52: A screenshot of the newly configured Email node. </em></p> 
+</div>
+
+The email would also instruct the analyst to login into TheHive in order to conduct further investigation. To test the system the Shuffle workflow was rerun and email notification was successfully recieved. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="709" height="473" alt="56" src="https://github.com/user-attachments/assets/39734cbe-2a7f-4259-979d-6c5f44147df9" />
+  <p><em>Figure 53: An example email notification recieved by the analyst. </em></p> 
+</div>
+
+
 
 
 
