@@ -567,7 +567,47 @@ With VirusTotal fully integrated, the Shuffle workflow was rerun. The SHA256 has
   <p><em>Figure 47: A screenshot of the response sent from VirusTotal. </em></p> 
 </div>
 
-**Integrating TheHive into Shuffle**: 
+**Integrating TheHive into Shuffle**: Once VirusTotal enrichment was successful, the next step was to create a case in TheHive. This was done by adding a "TheHive5" node in the Shuffle workflow and configuring its Advanced Body section to pass relevant details from the Wazuh alert and VirusTotal results. Additionally authentication between Shuffle and TheHive was handled using an API key created for the dedicated service account shuffle@test.com.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1600" height="872" alt="52" src="https://github.com/user-attachments/assets/eba1a607-0dda-44c4-a5c7-8eeb7f6241e5" />
+  <p><em>Figure 48: A screenshot of the newly configured TheHive node. </em></p> 
+</div>
+
+To ensure as much relevant detail was sent to TheHive as possible the following custom ```json``` entry was added in the ```Advanced``` ```Body``` field.
+```
+{
+  "title": "Alert: $exec.text.win.eventdata.description on $exec.text.win.system.computer", 
+  "description": "Detected by $exec.all_fields.full_log.win.system.providerName at $exec.text.win.eventdata.utcTime\n\nHost: $exec.text.win.system.computer ($exec.all_fields.agent.ip)\nUser: $exec.all_fields.data.win.eventdata.user\nOS: Windows\n\nOriginal File: $exec.text.win.eventdata.originalFileName\nCommand Line: $exec.text.win.eventdata.commandLine\nParent Command Line: $exec.all_fields.data.win.eventdata.parentCommandLine\nParent PID: $exec.all_fields.full_log.win.eventdata.parentProcessId\nHashes: $exec.text.win.eventdata.hashes", 
+  "flag": false, 
+  "pap": 2, 
+  "source": "Wazuh", 
+  "sourceRef": "Rule:$exec.rule_id-$exec.text.win.system.computer-$exec.all_fields.data.win.eventdata.user-$exec.text.win.eventdata.utcTime", 
+  "status": "New", 
+  "summary": "$exec.text.win.eventdata.description detected on $exec.text.win.system.computer by $exec.all_fields.data.win.eventdata.user", 
+  "tags": [
+    "Rule:$exec.rule_id", 
+    "Host:$exec.text.win.system.computer", 
+    "User:$exec.all_fields.data.win.eventdata.user", 
+    "Provider:$exec.all_fields.full_log.win.system.providerName"
+  ], 
+  "tlp": 2, 
+  "type": "Internal"
+}
+
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="845" height="393" alt="53" src="https://github.com/user-attachments/assets/7caba716-33e6-49a9-81a4-dbb9046f9235" />
+  <p><em>Figure 49: An example json entry used for TheHive. </em></p> 
+</div>
+
+The workflow was then rerun, and Wazuh alerts enriched with VirusTotal data were automatically forwarded to TheHive.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="848" height="521" alt="54" src="https://github.com/user-attachments/assets/83790d7e-c1ca-4754-adb8-92490698ec09" />
+  <p><em>Figure 49: An example json entry used for TheHive. </em></p> 
+</div>
+
 
 
 
