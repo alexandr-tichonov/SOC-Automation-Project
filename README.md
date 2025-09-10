@@ -605,8 +605,19 @@ The workflow was then rerun, and Wazuh alerts enriched with VirusTotal data were
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="848" height="521" alt="54" src="https://github.com/user-attachments/assets/83790d7e-c1ca-4754-adb8-92490698ec09" />
-  <p><em>Figure 49: An example json entry used for TheHive. </em></p> 
+  <p><em>Figure 50: An screenshot of the response sent back once the workflow was rerun. </em></p> 
 </div>
+
+Logging in with the previously configured ```avileti@test.com``` analyst account, a new alert could be seen in TheHive with details being automatically populated from Wazuh and VirusTotal. 
+
+This confirmed that Shuffle was successfully automating the process of receiving Wazuh alerts, enriching them via VirusTotal, and creating detailed cases inside TheHive for investigation.
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1158" height="481" alt="55" src="https://github.com/user-attachments/assets/017c34ed-07d7-43ad-8258-861e5c65a1d7" />
+  <p><em>Figure 51: An example Mimikatz alert that was automatically created in TheHive. </em></p> 
+</div>
+
+
 
 
 
