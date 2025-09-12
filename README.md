@@ -129,7 +129,7 @@ After successfully setting up the Wazuh Manager, the next step was to install a 
   <img width="577" height="295" alt="9" src="https://github.com/user-attachments/assets/80ce89a1-a58d-46b4-aceb-5bdee700695b" /> 
   <p><em>Figure 8: A screenshot showcasing the "Deploy New Agent" option on the Wazuh Dashboard. </em></p> </div> 
   
-  From the options presented, a Windows operating system was selected, with the server address being the Wazuh managers public IP address, the agent iteself was named as "Agent-2". 
+  From the options presented, a Windows operating system was selected, with the server address being the Wazuh managers public IP address, the agent iteself was named as "Agent-1". 
   
   
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
@@ -633,7 +633,35 @@ The email would also instruct the analyst to login into TheHive in order to cond
   <p><em>Figure 53: An example email notification recieved by the analyst. </em></p> 
 </div>
 
+**Phase 1 Summary**: With Phase 1 of this project finalized and concluded, a complete end-to-end alerting pipeline would be built.  **Wazuh** would successfully detect the execution of **Mimikatz**, even when the binary was renamed. The alert would then be enriched externally with **VirusTotal**, and would be forwarded to **TheHive** as a structured case. Finally an email notification would be sent to notify the analyst of the suspicious event prompting them to login to **TheHive** for further investigation.    
 
+## Technical Implementation Walkthrough (Phase 2)
+This section will be used to explain the exact steps taken to successfully set up and configure the second phase of this project.
+
+## Setting up the Wazuh Agent on Linux
+Similar to what was done during phase 1 a Wazuh agent would be configured on the previously setup Ubuntu machine hosted in the cloud. The decision to switch from Windows to Linux was intentional, as Wazuh’s active response is much more consistent on Linux, especially for automated actions such as blocking malicious IP addresses.  
+
+When configuring the Wazuh agent the Linux ```DEB amd64``` package would be selected with the server address being the Wazuh managers public IP address, the agent iteself was named as "Agent-3". 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1750" height="1244" alt="blurred-59 png" src="https://github.com/user-attachments/assets/58c4a968-c9bf-4efb-96f3-1c9ac8c7d6f3" />
+  <p><em>Figure 54: A screenshot of the options configured during agent setup. </em></p> 
+</div>
+
+The provided command would then be executed in the terminal in order to successfully setup the Wazuh agent. 
+```
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.12.0-1_amd64.deb && sudo WAZUH_MANAGER='<Public IP Address>' WAZUH_AGENT_NAME='Agent-3' dpkg -i ./wazuh-agent_4.12.0-1_amd64.deb
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="956" height="440" alt="blurred-60 png" src="https://github.com/user-attachments/assets/e3804181-f56e-4512-81ad-92017cfc0bf2" />
+  <p><em>Figure 55: A screenshot of the installation command being run in the terminal. </em></p> 
+</div>
+
+The agents installation was verified by going to the Wazuh dashboard and obeserving what agents are currently online. We can see that the Linux agent has been successfully setup. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1734" height="247" alt="blurred-61 png" src="https://github.com/user-attachments/assets/66860dd4-ff70-4fee-bd4f-510fea45b6c5" />
+  <p><em>Figure 56: A screenshot of the Linux agent being operational. </em></p> 
+</div>
 
 
 
