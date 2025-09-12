@@ -675,13 +675,24 @@ This was done by editing the previously mentioned ```ossec.conf``` configuration
   <timeout>no</timeout>
 </active-response>
 ```
+The ```<timeout>``` was set to ```no```, which indicates a permanent block of the IP address, this was chosen soley out of preference, and can be set to a specific timeout length. 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="890" height="324" alt="62" src="https://github.com/user-attachments/assets/76df0d1c-c817-4a40-a081-88be963a015e" />
-  <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file </em></p> 
+  <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file. </em></p> 
 </div>
 
+For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's inital installation. 
 
+In order for Shuffle to successfully obtain the token the following command entry would be made in the ```Statement``` field: 
+```
+curl -u <username>:<password> -k -X GET "https://<Wazuh-IP>:55000/security/user/authenticate?raw=true"
+```
+Where ```<Wazuh-IP>``` is the Wazuh managers public IP address. 
 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1123" height="571" alt="blurred-63 png(2)" src="https://github.com/user-attachments/assets/89627535-d0a1-4b33-8e96-20cdbd60d84c" />
+  <p><em>Figure 58: A screenshot of the newly configured Get-API node. </em></p> 
+</div>
 
 
 
