@@ -368,8 +368,8 @@ Once successfully logged in a new organization was created named ```AVILETI``` a
 </div> 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
-  <img width="935" height="543" alt="28" src="https://github.com/user-attachments/assets/290f3249-f6a6-4d3f-b655-15c0ca292b5c" />
-  <p><em>Figure 27: A screenshot showing a newly created analyst account. </em></p> 
+  <img width="935" height="543" alt="28" src="https://github.com/user-attachments/assets/6e5066b0-f62e-42d2-be0b-da53a29fc34d" />
+  <p><em> Figure 27: A screenshot showing a newly created analyst account. </em></p> 
 </div> 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
@@ -663,10 +663,22 @@ The agents installation was verified by going to the Wazuh dashboard and obeserv
   <p><em>Figure 56: A screenshot of the Linux agent being operational. </em></p> 
 </div>
 
+## Configuring Active Response for Wazuh
+To enable active blocking of malicious IP addresses, the **Wazuh Active Response** was configured in the Wazuh manager.
 
-
-
-
+This was done by editing the previously mentioned ```ossec.conf``` configuration file located in the ```/var/ossec/etc/``` directory, with the following ```<active-response>``` entry added:
+```
+<active-response>
+  <command>firewall-drop</command>
+  <location>local</location>
+  <level>11</level>
+  <timeout>no</timeout>
+</active-response>
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="890" height="324" alt="62" src="https://github.com/user-attachments/assets/76df0d1c-c817-4a40-a081-88be963a015e" />
+  <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file </em></p> 
+</div>
 
 
 
