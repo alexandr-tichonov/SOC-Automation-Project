@@ -498,7 +498,7 @@ The following entry was made in the ```ossec.conf``` file:
 ```
 <integration>
   <name>shuffle</name>
-  <hook_url>https://shuffler.io/api/v1/hooks/webhook_f8fd273e-6ac8-4338-8668-214685c799ea </hook_url>
+  <hook_url> <Webhook URL> </hook_url>
   <rule_id>100002</rule_id>
   <alert_format>json</alert_format>
 </integration>
@@ -681,7 +681,28 @@ The ```<timeout>``` was set to ```no```, which indicates a permanent block of th
   <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file. </em></p> 
 </div>
 
-For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's inital installation. 
+**Forwarding SSH Alerts to Shuffle**: The idea for the second phase of this project was to block suspicious login attempts via ssh. To do so the first step was to reconfigure the previously added ```<integration>```block, inside the```ossec.conf``` configuration file, located within the ```/var/ossec/etc``` directory. The ```<rule_id>``` parameter would then be modified from ```100002```, and was instead set to ```5760```. 
+
+Wazuh's ```rule_id 5760``` specifically targets the log message: ```sshd: authenitcation failiure```, thus triggering an alert whenever a failed ssh login occurs. The following entry was thus added to the ```ossec.conf``` configuration file:
+
+```
+<integration>
+  <name>shuffle</name>
+  <hook_url> <Webhook URL> </hook_url>
+  <rule_id>5760</rule_id>
+  <alert_format>json</alert_format>
+</integration>
+```
+
+The changes to the ```ossec.conf``` file were then appropriately saved and the Wazuh manager was restarted. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="772" height="249" alt="64" src="https://github.com/user-attachments/assets/abff6fa1-05d8-492e-912c-e70d53c94196" />
+  <p><em>Figure 58: A screenshot of the integration block entry added in the ossec.conf configuration file. </em></p> 
+</div>
+
+
+**Configuring the Get-API node in Shuffle** For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's inital installation. 
 
 In order for Shuffle to successfully obtain the token the following command entry would be made in the ```Statement``` field: 
 ```
@@ -691,7 +712,7 @@ Where ```<Wazuh-IP>``` is the Wazuh managers public IP address.
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1123" height="571" alt="blurred-63 png(2)" src="https://github.com/user-attachments/assets/89627535-d0a1-4b33-8e96-20cdbd60d84c" />
-  <p><em>Figure 58: A screenshot of the newly configured Get-API node. </em></p> 
+  <p><em>Figure 59: A screenshot of the newly configured Get-API node. </em></p> 
 </div>
 
 
