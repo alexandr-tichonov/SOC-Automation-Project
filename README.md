@@ -681,7 +681,9 @@ The ```<timeout>``` was set to ```no```, which indicates a permanent block of th
   <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file. </em></p> 
 </div>
 
-**Forwarding SSH Alerts to Shuffle**: The idea for the second phase of this project was to block suspicious login attempts via ssh. To do so the first step was to reconfigure the previously added ```<integration>```block, inside the```ossec.conf``` configuration file, located within the ```/var/ossec/etc``` directory. The ```<rule_id>``` parameter would then be modified from ```100002```, and was instead set to ```5760```. 
+**Forwarding SSH Alerts to Shuffle**: The idea for the second phase of this project was to block suspicious login attempts via ssh. To do so Wazuh has to successfully send failed ssh login events directly to Shuffle via webhook URI. 
+
+Thus the first step was to reconfigure the previously added ```<integration>```block, inside the```ossec.conf``` configuration file, located within the ```/var/ossec/etc``` directory. The ```<rule_id>``` parameter would then be modified from ```100002```, and was instead set to ```5760```. 
 
 Wazuh's ```rule_id 5760``` specifically targets the log message: ```sshd: authenitcation failiure```, thus triggering an alert whenever a failed ssh login occurs. The following entry was thus added to the ```ossec.conf``` configuration file:
 
