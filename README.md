@@ -681,7 +681,7 @@ The ```<timeout>``` was set to ```no```, which indicates a permanent block of th
   <p><em>Figure 57: A screenshot of the active response entry added in the ossec.conf configuration file. </em></p> 
 </div>
 
-**Forwarding SSH Alerts to Shuffle**: The idea for the second phase of this project was to block suspicious login attempts via ssh. To do so Wazuh has to successfully send failed ssh login events directly to Shuffle via webhook URI. 
+**Forwarding SSH Alerts to Shuffle**: The idea for the second phase of this project was to block suspicious login attempts via ssh. To do so Wazuh had to successfully send failed ssh login events directly to Shuffle via webhook URI. 
 
 Thus the first step was to reconfigure the previously added ```<integration>```block, inside the```ossec.conf``` configuration file, located within the ```/var/ossec/etc``` directory. The ```<rule_id>``` parameter would then be modified from ```100002```, and was instead set to ```5760```. 
 
@@ -726,11 +726,41 @@ Where ```<Wazuh-IP>``` is the Wazuh managers public IP address.
   <p><em>Figure 60: A screenshot of the newly configured Get-API node. </em></p> 
 </div>
 
-**Configuring the PUT Node for Active Response**: During this nearly final stage of the workflow, the idea was to instruct Wazuh to take automated action against an IP address. To do this, another HTTP node was added to the Shuffle workflow and was renamed to ```PUT```. The ```Find actions field``` of the node was set to make a ```PUT``` request, with the following URI being provided: 
+**Configuring the PUT Node for Active Response**: During this nearly final stage of the workflow, the idea was to instruct Wazuh to take automated action against an IP address. To do this, another HTTP node was added to the Shuffle workflow and renamed to ```PUT```. The ```Find actions field``` of the node was set to make a ```PUT``` request, with the following URI being provided: 
 ```
 https://<Wazuh-Manager-IP>:55000/active-response?agents_list=003
 ```
-The ```<Wazuh-Manager-IP``` represents the public IP of the Wazuh manager, and the value of ```003``` corresponds to the ID of the previously configured Wazuh agent on our Ubuntu machine. 
+Here, <Wazuh-Manager-IP> represents the public IP of the Wazuh manager, while 003 corresponds to the ID of the previously configured Wazuh agent on the Ubuntu machine.
+
+For API authentication, the following headers were added:
+```
+{
+  "Authorization": "Bearer $get-api",
+  "Content-Type": "application/json"
+}
+```
+
+Where the ```$get-api``` value was dynamically obtained from the previously configured Get-API node, ensuring that Shuffle could securely interact with the Wazuh API.  
+
+Before committing to a dynamic entry for the body field, a small preliminary test was conducted with a static entry, where an attempt was made to activley drop traffic from Google's public DNS (```8.8.8.8```).
+
+Thus the following static entry would be made in the ```Body``` field of the request:
+```
+{
+  "command": "firewall-drop",
+  "arguments": [
+    "8.8.8.8"
+  ],
+  "alert": {
+    "data": {
+      "srcip": "8.8.8.8"
+    }
+  }
+}
+```
+
+
+
 
 
 
