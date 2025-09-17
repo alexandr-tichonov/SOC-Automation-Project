@@ -703,6 +703,15 @@ The changes to the ```ossec.conf``` file were then appropriately saved and the W
   <p><em>Figure 58: A screenshot of the integration block entry added in the ossec.conf configuration file. </em></p> 
 </div>
 
+**Reconfiguring VirusTotal for Shuffle**: Before an automated response is taken against a suspicious SSH login attempt, it is important to first verify the reputation of the source IP address. This ensures that defensive actions, such as active blocking, are taken only when there is enough supporting intelligence. 
+
+To achieve this, the existing VirusTotal node in Shuffle would be reconfigured with the ```Find actions``` field being modified to: ```Get an IP address report```. The ```$exec.all_fields.data.srcip``` argument would then be passed into the ```Ip``` field of the node, which will dynamically extract the source IP address from the Wazuh alert that triggered rule_id **5760**. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1142" height="768" alt="65" src="https://github.com/user-attachments/assets/fb7b7837-f13b-4770-b36e-bb3547979002" />
+  <p><em>Figure 59: The VirusTotal node reconfigured to query IP reputation. </em></p> 
+</div>
+
 
 **Configuring the Get-API node in Shuffle** For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's inital installation. 
 
@@ -714,9 +723,14 @@ Where ```<Wazuh-IP>``` is the Wazuh managers public IP address.
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1123" height="571" alt="blurred-63 png(2)" src="https://github.com/user-attachments/assets/89627535-d0a1-4b33-8e96-20cdbd60d84c" />
-  <p><em>Figure 59: A screenshot of the newly configured Get-API node. </em></p> 
+  <p><em>Figure 60: A screenshot of the newly configured Get-API node. </em></p> 
 </div>
 
+**Configuring the PUT Node for Active Response**: During this nearly final stage of the workflow, the idea was to instruct Wazuh to take automated action against an IP address. To do this, another HTTP node was added to the Shuffle workflow and was renamed to ```PUT```. The ```Find actions field``` of the node was set to make a ```PUT``` request, with the following URI being provided: 
+```
+https://<Wazuh-Manager-IP>:55000/active-response?agents_list=003
+```
+The ```<Wazuh-Manager-IP``` represents the public IP of the Wazuh manager, and the value of ```003``` corresponds to the ID of the previously configured Wazuh agent on our Ubuntu machine. 
 
 
 
