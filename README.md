@@ -758,6 +758,11 @@ Thus the following static entry would be made in the ```Body``` field of the req
   }
 }
 ```
+The workflow structure was thus arranged in the following configuration:
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1338" height="788" alt="blurred-67 png" src="https://github.com/user-attachments/assets/1f287039-4e06-4f52-b956-d39e18f3fd28" />
+  <p><em>Figure 61: A screenshot of the newly configured PUT node. </em></p> 
+</div>
 
 
 
