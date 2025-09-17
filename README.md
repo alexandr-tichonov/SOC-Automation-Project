@@ -730,7 +730,7 @@ Where ```<Wazuh-IP>``` is the Wazuh managers public IP address.
 ```
 https://<Wazuh-Manager-IP>:55000/active-response?agents_list=003
 ```
-Here, <Wazuh-Manager-IP> represents the public IP of the Wazuh manager, while 003 corresponds to the ID of the previously configured Wazuh agent on the Ubuntu machine.
+Here, ```<Wazuh-Manager-IP>``` represents the public IP of the Wazuh manager, while ```003``` corresponds to the ID of the previously configured Wazuh agent on the Ubuntu machine.
 
 For API authentication, the following headers were added:
 ```
@@ -763,6 +763,15 @@ The workflow structure was thus arranged in the following configuration:
   <img width="1338" height="788" alt="blurred-67 png" src="https://github.com/user-attachments/assets/1f287039-4e06-4f52-b956-d39e18f3fd28" />
   <p><em>Figure 61: A screenshot of the newly configured PUT node. </em></p> 
 </div>
+
+The workflow was then saved and rerun, with the following response being sent by the Wazuh API:
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="873" height="390" alt="blurred-68 png" src="https://github.com/user-attachments/assets/965cc53f-2b36-4d23-a78d-6b4feaf78acc" />
+  <p><em>Figure 62: A screenshot of the Wazuh API responding successfully. </em></p> 
+</div>
+
+
+
 
 
 
