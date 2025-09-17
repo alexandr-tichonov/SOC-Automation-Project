@@ -780,6 +780,34 @@ The results confirmed that the active response had succeeded, with 8.8.8.8 liste
   <p><em>Figure 63: A screenshot of the 8.8.8.8 Ip address being successfully dropped.  </em></p> 
 </div>
 
+With the preliminary test complete, the static entry was replaced with a dynamic one, replacing the hardcoded ```8.8.8.8``` address with the ```$exec.all_fields.data.srcip``` argument. The following final json entry would thus be made in the ```Body``` field of the ```PUT``` node.
+```
+{
+  "command": "firewall-drop",
+  "arguments": ["$exec.all_fields.data.srcip"],
+  "alert": {
+    "data": {
+      "srcip": "$exec.all_fields.data.srcip"
+    }
+  }
+}
+```
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="714" height="216" alt="70" src="https://github.com/user-attachments/assets/f002be85-93d4-43f6-be20-3555d0b36df8" />
+  <p><em>Figure 64: A screenshot of the final entry that was made in the body field.  </em></p> 
+</div>
+
+**Adding Analyst Confirmation via User Input**: To avoid automatically blocking SSH login attempts for legitimate users, a User Input node was added to the workflow. This node would send an email notification to the analyst prompting them to decide whether to block the suspicious IP address. 
+
+To implement this the User Input node would be dragged into the Shuffle workflow. The ```Information``` and ```Input options``` fields were then modified, with the final configuration being setup as follows: 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1331" height="682" alt="blurred-71 png(1)" src="https://github.com/user-attachments/assets/88375530-d5b8-4510-b518-6a9331f50ab6" />
+  <p><em>Figure 65: A screenshot of a successfully configured User Input node.  </em></p> 
+</div>
+
+
+
+
 
 
 
