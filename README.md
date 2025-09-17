@@ -764,14 +764,21 @@ The workflow structure was thus arranged in the following configuration:
   <p><em>Figure 61: A screenshot of the newly configured PUT node. </em></p> 
 </div>
 
-The workflow was then saved and rerun, with the following response being sent by the Wazuh API:
+The workflow was then saved and rerun, and the following response was sent by the Wazuh API:
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="873" height="390" alt="blurred-68 png" src="https://github.com/user-attachments/assets/965cc53f-2b36-4d23-a78d-6b4feaf78acc" />
   <p><em>Figure 62: A screenshot of the Wazuh API responding successfully. </em></p> 
 </div>
 
-
-
+To validate whether the IP address ```8.8.8.8``` was in fact blocked, an SSH session was opened into the Ubuntu machine and the following command was executed in the terminal:
+```
+iptables -L INPUT -n | grep 8.8.8.8
+```
+The results confirmed that the active response had succeeded, with 8.8.8.8 listed as a dropped address.
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="696" height="171" alt="69" src="https://github.com/user-attachments/assets/cc4f1d37-a6dd-411e-a0f6-815ceb85b5f0" />
+  <p><em>Figure 63: A screenshot of the 8.8.8.8 Ip address being successfully dropped.  </em></p> 
+</div>
 
 
 
