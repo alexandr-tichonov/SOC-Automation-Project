@@ -805,6 +805,17 @@ To implement this the User Input node would be dragged into the Shuffle workflow
   <p><em>Figure 65: A screenshot of a successfully configured User Input node.  </em></p> 
 </div>
 
+## Final Workflow Validation
+
+**Real World Testing**: The final step for this project was to validate the effectiveness of the SOC automation workflow by exposing the cloud-hosted Ubuntu machine to the internet. Within minutes the server began recieving multiple automated SSH login attempts from random bots scanning for weak credentials. 
+
+As designed, Wazuh successfully detected the failed login attempts, triggering the configured Shuffle workflow. This generated an automated email notification to the analyst, prompting whether the identified source IP address should be blocked. 
+
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1507" height="337" alt="72" src="https://github.com/user-attachments/assets/de2ea75b-e5b6-4de9-b57c-4548eaefcea4" />
+  <p><em>Figure 66: A screenshot of the email notification sent to the analyst.  </em></p> 
+</div>
+
 
 
 
