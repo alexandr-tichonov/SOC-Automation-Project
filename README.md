@@ -816,6 +816,18 @@ As designed, Wazuh successfully detected the failed login attempts, triggering t
   <p><em>Figure 66: A screenshot of the email notification sent to the analyst.  </em></p> 
 </div>
 
+Upon confirmation, the PUT request was issued to the Wazuh API, which in turn executed the active response. To verify if the malicious IP was successfully blocked the following command was ran on the Ubuntu Machine:
+```
+iptables -L -n -v
+```
+The output confirmed that the malicious IP address was indeed being dropped. 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="727" height="120" alt="blurred-73 png" src="https://github.com/user-attachments/assets/f0d89748-07c5-4440-a657-d1c3b71b50de" />
+  <p><em>Figure 67: A screenshot of the malicious IP address being successfully dropped.  </em></p> 
+</div>
+
+
+
 
 
 
