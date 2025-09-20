@@ -820,14 +820,18 @@ Upon confirmation, the PUT request was issued to the Wazuh API, which in turn ex
 ```
 iptables -L -n -v
 ```
-The output confirmed that the malicious IP address was indeed being dropped. 
+The output confirmed that the malicious IP addresses were successfully added to the firewall’s drop list. 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="727" height="120" alt="blurred-73 png" src="https://github.com/user-attachments/assets/f0d89748-07c5-4440-a657-d1c3b71b50de" />
   <p><em>Figure 67: A screenshot of the malicious IP address being successfully dropped.  </em></p> 
 </div>
 
-By the end of the day the workflow had successfully identified, notified and blocked over 100 unique bots attempting unauthorized SSH logins, thus verifying that the implemented workflow was indeed capable of handling a custom stream of repetitive alerts.  
+By the end of the day the workflow had successfully identified, notified and blocked over 100 unique bots attempting unauthorized SSH logins, thus verifying that the implemented workflow was indeed capable of handling a constant stream of repetitive alerts.  
 
+<div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
+  <img width="1500" height="125" alt="74" src="https://github.com/user-attachments/assets/25b372d3-9b78-4ffd-be94-cc6fa643730b" />
+  <p><em>Figure 68: A screenshot of the number of email notifications sent during workflow testing.  </em></p> 
+</div>
 
 
 
