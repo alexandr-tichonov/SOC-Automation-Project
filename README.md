@@ -833,6 +833,7 @@ By the end of the day the workflow had successfully identified, notified and blo
   <p><em>Figure 68: A screenshot of the number of email notifications sent during workflow testing.  </em></p> 
 </div>
 
+**Phase 2 Summary**: With Phase 2 of this project finalized and concluded, the alerting pipeline was extended into a responsive defense mechanism. Wazuh would detect repeated SSH login attempts, forward the events to Shuffle, and enrich the source IP address with VirusTotal. The workflow would then successfully authenticate with the Wazuh API and issue active responses to block malicious IP addresses at the firewall level. Finally user input was added to allow the analyst to choose whether or not responsive action is required by initiating commands via email. 
 
 
 
