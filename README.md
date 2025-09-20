@@ -826,6 +826,8 @@ The output confirmed that the malicious IP address was indeed being dropped.
   <p><em>Figure 67: A screenshot of the malicious IP address being successfully dropped.  </em></p> 
 </div>
 
+By the end of the day the workflow had successfully identified, notified and blocked over 100 unique bots attempting unauthorized SSH logins, thus verifying that the implemented workflow was indeed capable of handling a custom stream of repetitive alerts.  
+
 
 
 
