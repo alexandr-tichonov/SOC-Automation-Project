@@ -21,7 +21,7 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 * Practicing incident response automation with active response.
 
 ## Tools
-## Endpoint
+### Endpoint
 <div> <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"> <img src="https://img.shields.io/badge/-Sysmon-000000?&style=for-the-badge" /> </a> <a href="https://wazuh.com/"> <img src="https://img.shields.io/badge/-Wazuh-02569B?&style=for-the-badge" /> </a> </div>
 
 ### SOAR and Case Management  
@@ -35,10 +35,10 @@ Additionally, this workflow was designed to notify the analyst of malicious acti
 </div>  
 
 
-## Threat Intelligence
+### Threat Intelligence
 <div> <a href="https://www.virustotal.com/"> <img src="https://img.shields.io/badge/-VirusTotal-394EFF?&style=for-the-badge&logo=virustotal&logoColor=white" /> </a> </div>
 
-## Cloud Provider
+### Cloud Provider
 <div>
   <a href="https://www.digitalocean.com/">
     <img src="https://img.shields.io/badge/-DigitalOcean-0080FF?&style=for-the-badge&logo=digitalocean&logoColor=white" />
