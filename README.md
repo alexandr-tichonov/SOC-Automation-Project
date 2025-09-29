@@ -3,7 +3,7 @@
 ## Introduction
 The intended purpose of this project was to gain practical hands-on experience in security **automation**, **detection**, and **response**, and attain valuable insight into the inner workings of a real-life security operations center (SOC) workflow. The modern SOC environment ingests a massive amount of alerts, commonly from numerous endpoints, which forces analysts to often respond to events that could have easily been automated, thus contributing to event fatigue and weakening security posture. To help alleviate some of the burden, a vast assortment of effective, scalable, and cost-effective tools were assembled into a comprehensive workflow that collects telemetry, enriches it with threat intelligence, and automates response actions. 
 
-Although this project was used as a learning experience and thus does not have the complexity nor nuance required to automate complex SOC systems, the underlying design used is highly scalabe and cost effective. Using an orchestration platform like Shuffle, additional integrations and automated tasks can easily be implemented facilitating rapid adaptability to new threats, and allowing any SOC systems to configure automation and response to their own liking. The result is a system that not only improves efficiency, but also supports proactive security monitoring, where analysts can focus on high-value decision making instead of repetitive manual tasks.  
+Although this project was used as a learning experience and thus does not have the complexity nor nuance required to automate complex SOC systems, the underlying design used is highly scalabe and cost effective. Using an orchestration platform like Shuffle, additional integrations and automated tasks can easily be implemented facilitating rapid adaptability to new threats, and allowing any SOC systems to configure automation and response to their own liking. The result is a system that not only improves efficiency but also supports proactive security monitoring, where analysts can focus on high-value decision-making instead of repetitive manual tasks.  
 
 ## Objective
 The final objective of this project was to employ a vast assortment of scalable and cost-effective tools, and assemble them into an **end-to-end security** workflow that can successfully ingest and centralize telemetry collected from Windows and Linux endpoints, enrich suspicious indicators of compromise with external threat intelligence sources, and provide automatic alerting and case management for further investigations.
@@ -225,7 +225,7 @@ The ```systemctl status cassandra``` command was run to verify if Cassandra was 
   <p><em>Figure 15: A screenshot of a successful Cassandra installation. </em></p> 
 </div> 
 
-After installation Cassandra needed to be configured to properly communicate with TheHive. This was done by modifying the ```cassandra.yaml``` configuration file located in the ```/etc/cassandra``` directory. 
+After installation, Cassandra needed to be configured to properly communicate with TheHive. This was done by modifying the ```cassandra.yaml``` configuration file located in the ```/etc/cassandra``` directory. 
 ```
 nano /etc/cassandra/cassandra.yaml
 ```
@@ -350,7 +350,7 @@ TheHive was then restarted with:
 systemctl restart thehive
 ```
 
-After ensuring that all three services were successfully running it was now possible to login into TheHive via web browser using TheHive's public IP and port ```9000```. 
+After ensuring that all three services were successfully running it was now possible to log in to TheHive via web browser using TheHive's public IP and port ```9000```. 
 ```
 http://<TheHive's Public IP>:9000
 ```
@@ -393,7 +393,7 @@ The Wazuh manager was then restarted by running:
 ```
 systemctl restart wazuh-manager.service
 ```
-Once Wazuh was configured to log all events, the raw data began appearing in the ```/var/ossec/logs/archives``` directory as archive logs. Unfortunatley Wazuh, by default, does not ingest archive logs simply leaving them stored for future reference. 
+Once Wazuh was configured to log all events, the raw data began appearing in the ```/var/ossec/logs/archives``` directory as archive logs. Unfortunately, Wazuh, by default, does not ingest archive logs, simply leaving them stored for future reference. 
 
 To enable ingestion of archived logs, the Filebeat configuration file ```filebeat.yml``` was updated, by modifying the ```archives:``` ```enabled:``` parameter to ```true```.
 ```
@@ -420,9 +420,9 @@ With the Filebeat now ingesting the archive logs, a new **index pattern** was cr
   <p><em>Figure 32: A screenshot showing the index pattern definition. </em></p> 
 </div>
 
-Mimikatz is a well-known post-exploitation tool commonly used by attackers to extract credentials from Windows systems. Due to its prevelance in real-world intrusions, the goal of this project was to detect the execution of Mimikatz immidiatley upon launch, even when the Binary was renamed to evede simple signature based detections. 
+Mimikatz is a well-known post-exploitation tool commonly used by attackers to extract credentials from Windows systems. Due to its prevalence in real-world intrusions, the goal of this project was to detect the execution of Mimikatz immediately upon launch, even when the Binary was renamed to evade simple signature-based detections. 
 
-To validate the detection capablities of the newly configured Wazuh SIEM Mimikatz was first executed under its original filename ```mimikatz.exe```. 
+To validate the detection capabilities of the newly configured Wazuh SIEM, Mimikatz was first executed under its original filename ```mimikatz.exe```. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="625" height="220" alt="35" src="https://github.com/user-attachments/assets/0dc7d29a-53dc-4974-83c2-101dbfdc6421" />
@@ -433,7 +433,7 @@ By searching the newly crated ```wazuh-archives-*``` index in the Wazuh web inte
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1600" height="619" alt="blurred-36 png" src="https://github.com/user-attachments/assets/63497dd9-3513-41b3-9c77-f39f43ef4419" />
-  <p><em>Figure 34: A screenshot of two Mimikatz related events being displayed on the Wazuh dashboard. </em></p> 
+  <p><em>Figure 34: A screenshot of two Mimikatz-related events being displayed on the Wazuh dashboard. </em></p> 
 </div>
 
 By closely analyzing the events generated when Mimikatz was executed, it was possible to identify a reliable field for detection which was the ```originalFileName``` field. This field retains the executable's true internal name ```mimikatz.exe``, even if the file itself is renamed by the attacker. 
@@ -485,7 +485,7 @@ The culmination of this project revolves around Shuffle, which is an open-source
   <p><em>Figure 39: A screenshot showing the creation of a new workflow. </em></p> 
 </div>
 
-A new workflow was created in Shuffle starting with a Webhook node called ```Wazuh_Alerts```. This webhook serves as the entry point through which Wazuh will forward its alerts. 
+A new workflow was created in Shuffle, starting with a Webhook node called ```Wazuh_Alerts```. This webhook serves as the entry point through which Wazuh will forward its alerts. 
 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
@@ -503,7 +503,7 @@ The following entry was made in the ```ossec.conf``` file:
   <alert_format>json</alert_format>
 </integration>
 ```
-As a preliminary test the ```<rule_id>``` parameter was set to rule id ```100002```, which is a custom rule that was previously created to log Mimikatz events. This was done to initially simplfy the necessary automation required.  
+As a preliminary test, the ```<rule_id>``` parameter was set to rule id ```100002```, which is a custom rule that was previously created to log Mimikatz events. This was done to initially simplify the necessary automation required.  
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1042" height="253" alt="41" src="https://github.com/user-attachments/assets/22665404-4585-4efc-a565-05ac18559bce" />
   <p><em>Figure 41: A screenshot showing an entry being made in the ossec.conf configuration file.  </em></p> 
@@ -514,25 +514,25 @@ Wazuh manager was then restarted by running:
 systemctl restart wazuh-manager.service
 ```
 
-The Webhook URI was then started and Mimikatz was executed on the Windows virtual machine to generate a Mimikatz related alert. Shortly after runnning the workflow Shuffle successfully recieved the alert from Wazuh which was now displayed via its web interface. 
+The Webhook URI was then started and Mimikatz was executed on the Windows virtual machine to generate a Mimikatz-related alert. Shortly after running the workflow Shuffle successfully received the alert from Wazuh, which was now displayed via its web interface. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="884" height="466" alt="44" src="https://github.com/user-attachments/assets/2fc37cce-9906-4a24-b8e5-86972da846f0" />
-  <p><em>Figure 42: A screenshot showing a Mimikatz related alert being displayed via Shuffle's web interface.  </em></p> 
+  <p><em>Figure 42: A screenshot showing a Mimikatz-related alert being displayed via Shuffle's web interface.  </em></p> 
 </div>
 
 Inspecting the raw alert data inside Shuffle revealed several useful fields, including a ```hashes``` parameter. The **SHA256 hash** looked like a promising field that can later be used for enrichment via **VirusTotal**. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="779" height="237" alt="45" src="https://github.com/user-attachments/assets/75f664a3-56b9-4845-9261-9772af22af22" />
-  <p><em>Figure 43: A screenshot of additional Mimikatz related event parameters. </em></p> 
+  <p><em>Figure 43: A screenshot of additional Mimikatz-related event parameters. </em></p> 
 </div>
 
-**Enrichment with Virus Total**: When an alert is recieved, the raw data displayed is often not enough to immidiatley understand the threat. Enrichment adds context through the correlation of data with external threat intelligence sources, thus helping analysts differentiate false positives from malicious indicators.   
+**Enrichment with Virus Total**: When an alert is received, the raw data displayed is often not enough to immediately understand the threat. Enrichment adds context through the correlation of data with external threat intelligence sources, thus helping analysts differentiate false positives from malicious indicators.   
 
-For this project, the use of the ```hashes``` parameter would be ideal for reputation checks on VirusTotal as the **SHA256** hash serves as a unique identifier for executables and remains unchanged regardless if a file is renamed or not.  
+For this project, the use of the ```hashes``` parameter would be ideal for reputation checks on VirusTotal, as the **SHA256** hash serves as a unique identifier for executables and remains unchanged regardless if a file is renamed or not.  
 
-In order to successfully parse the **SHA256** parameter from the ```hashes``` field the ```Change Me``` node was modified in the Shuffle workflow. The ```Find actions``` field was configured as a ```Regex capture group```, with the ```Input data``` argument being: ```$exec.text.win.eventdata.hashes```. 
+In order to successfully parse the **SHA256** parameter from the ```hashes``` field, the ```Change Me``` node was modified in the Shuffle workflow. The ```Find actions``` field was configured as a ```Regex capture group```, with the ```Input data``` argument being: ```$exec.text.win.eventdata.hashes```. 
 
 Finally the following entry was added in the corresponding ```Regex``` field: 
 ```
@@ -544,7 +544,7 @@ SHA256=([0-9A-Fa-f]{64})
   <p><em>Figure 44: A screenshot of the newly modified SHA256-Regex node.  </em></p> 
 </div>
 
-After rerunning the workflow and executing mimikatz on the Windows virtual machine the SHA256 hash value was successfully parsed, (as shown in Shuffles output). 
+After rerunning the workflow and executing Mimikatz on the Windows virtual machine, the SHA256 hash value was successfully parsed, (as shown in Shuffles output). 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="898" height="538" alt="48" src="https://github.com/user-attachments/assets/bd9c0da1-5e47-4023-98b3-e53c234d1fa8" />
@@ -605,7 +605,7 @@ The workflow was then rerun, and Wazuh alerts enriched with VirusTotal data were
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="848" height="521" alt="54" src="https://github.com/user-attachments/assets/83790d7e-c1ca-4754-adb8-92490698ec09" />
-  <p><em>Figure 50: An screenshot of the response sent back once the workflow was rerun. </em></p> 
+  <p><em>Figure 50: A screenshot of the response sent back once the workflow was rerun. </em></p> 
 </div>
 
 Logging in with the previously configured ```avileti@test.com``` analyst account, a new alert could be seen in TheHive with details being automatically populated from Wazuh and VirusTotal. 
@@ -619,36 +619,36 @@ This confirmed that Shuffle was successfully automating the process of receiving
 
 
 **Integrating email notifications**: 
-The final step was to create an email notification system where the analyst can be immidiatley notified of any suspicious alerts. To do so an email node would be dragged and connected directly after the VirusTotal enrichment. The ```Recipient```, ```Subject```, and ```Body``` fields were customized to pass along relevant information regarding the alert. 
+The final step was to create an email notification system where the analyst can be immediately notified of any suspicious alerts. To do so an email node would be dragged and connected directly after the VirusTotal enrichment. The ```Recipient```, ```Subject```, and ```Body``` fields were customized to pass along relevant information regarding the alert. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1127" height="789" alt="blurred-57 png" src="https://github.com/user-attachments/assets/9c590c00-dec4-4033-8f13-a080234027d4" />
   <p><em>Figure 52: A screenshot of the newly configured Email node. </em></p> 
 </div>
 
-The email would also instruct the analyst to login into TheHive in order to conduct further investigation. To test the system the Shuffle workflow was rerun and email notification was successfully recieved. 
+The email would also instruct the analyst to log in to TheHive in order to conduct further investigation. To test the system, the Shuffle workflow was rerun, and an email notification was successfully received. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="709" height="473" alt="56" src="https://github.com/user-attachments/assets/39734cbe-2a7f-4259-979d-6c5f44147df9" />
-  <p><em>Figure 53: An example email notification recieved by the analyst. </em></p> 
+  <p><em>Figure 53: An example email notification received by the analyst. </em></p> 
 </div>
 
-**Phase 1 Summary**: With Phase 1 of this project finalized and concluded, a complete end-to-end alerting pipeline would be built.  **Wazuh** would successfully detect the execution of **Mimikatz**, even when the binary was renamed. The alert would then be enriched externally with **VirusTotal**, and would be forwarded to **TheHive** as a structured case. Finally an email notification would be sent to notify the analyst of the suspicious event prompting them to login to **TheHive** for further investigation.    
+**Phase 1 Summary**: With Phase 1 of this project finalized and concluded, a complete end-to-end alerting pipeline would be built.  **Wazuh** would successfully detect the execution of **Mimikatz**, even when the binary was renamed. The alert would then be enriched externally with **VirusTotal**, and would be forwarded to **TheHive** as a structured case. Finally, an email notification would be sent to notify the analyst of the suspicious event, prompting them to log in to **TheHive** for further investigation.    
 
 ## Technical Implementation Walkthrough (Phase 2)
 This section will be used to explain the exact steps taken to successfully set up and configure the second phase of this project.
 
 ## Setting up the Wazuh Agent on Linux
-Similar to what was done during phase 1 a Wazuh agent would be configured on the previously setup Ubuntu machine hosted in the cloud. The decision to switch from Windows to Linux was intentional, as Wazuh’s active response is much more consistent on Linux, especially for automated actions such as blocking malicious IP addresses.  
+Similar to what was done during phase 1 a Wazuh agent would be configured on the previously set up Ubuntu machine hosted in the cloud. The decision to switch from Windows to Linux was intentional, as Wazuh’s active response is much more consistent on Linux, especially for automated actions such as blocking malicious IP addresses.  
 
-When configuring the Wazuh agent the Linux ```DEB amd64``` package would be selected with the server address being the Wazuh managers public IP address, the agent iteself was named as "Agent-3". 
+When configuring the Wazuh agent, the Linux ```DEB amd64``` package would be selected with the server address being the Wazuh manager's public IP address, the agent itself was named as "Agent-3". 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1750" height="1244" alt="blurred-59 png" src="https://github.com/user-attachments/assets/58c4a968-c9bf-4efb-96f3-1c9ac8c7d6f3" />
   <p><em>Figure 54: A screenshot of the options configured during agent setup. </em></p> 
 </div>
 
-The provided command would then be executed in the terminal in order to successfully setup the Wazuh agent. 
+The provided command would then be executed in the terminal in order to successfully set up the Wazuh agent. 
 ```
 wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.12.0-1_amd64.deb && sudo WAZUH_MANAGER='<Public IP Address>' WAZUH_AGENT_NAME='Agent-3' dpkg -i ./wazuh-agent_4.12.0-1_amd64.deb
 ```
@@ -685,7 +685,7 @@ The ```<timeout>``` was set to ```no```, which indicates a permanent block of th
 
 Thus the first step was to reconfigure the previously added ```<integration>```block, inside the```ossec.conf``` configuration file, located within the ```/var/ossec/etc``` directory. The ```<rule_id>``` parameter would then be modified from ```100002```, and was instead set to ```5760```. 
 
-Wazuh's ```rule_id 5760``` specifically targets the log message: ```sshd: authenitcation failiure```, thus triggering an alert whenever a failed ssh login occurs. The following entry was thus added to the ```ossec.conf``` configuration file:
+Wazuh's ```rule_id 5760``` specifically targets the log message: ```sshd: authentication failure```, thus triggering an alert whenever a failed ssh login occurs. The following entry was thus added to the ```ossec.conf``` configuration file:
 
 ```
 <integration>
@@ -696,7 +696,7 @@ Wazuh's ```rule_id 5760``` specifically targets the log message: ```sshd: authen
 </integration>
 ```
 
-The changes to the ```ossec.conf``` file were then appropriately saved and the Wazuh manager was restarted. 
+The changes to the ```ossec.conf``` file were then appropriately saved, and the Wazuh manager was restarted. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="772" height="249" alt="64" src="https://github.com/user-attachments/assets/abff6fa1-05d8-492e-912c-e70d53c94196" />
@@ -713,13 +713,13 @@ To achieve this, the existing VirusTotal node in Shuffle would be reconfigured w
 </div>
 
 
-**Configuring the Get-API node in Shuffle** For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's inital installation. 
+**Configuring the Get-API node in Shuffle** For Shuffle to instruct Wazuh to take automated action, it first needs to authenticate securely with the Wazuh API. To retrieve the token, an HTTP node was added to the Shuffle workflow. The node was renamed to ```Get-API```and the Find actions field was set to ```curl```, which was configured with the Wazuh API user credentials that were obtained during Wazuh's initial installation. 
 
-In order for Shuffle to successfully obtain the token the following command entry would be made in the ```Statement``` field: 
+In order for Shuffle to successfully obtain the token, the following command entry would be made in the ```Statement``` field: 
 ```
 curl -u <username>:<password> -k -X GET "https://<Wazuh-IP>:55000/security/user/authenticate?raw=true"
 ```
-Where ```<Wazuh-IP>``` is the Wazuh managers public IP address. 
+Where ```<Wazuh-IP>``` is the Wazuh manager's public IP address. 
 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1123" height="571" alt="blurred-63 png(2)" src="https://github.com/user-attachments/assets/89627535-d0a1-4b33-8e96-20cdbd60d84c" />
@@ -744,7 +744,7 @@ Where the ```$get-api``` value was dynamically obtained from the previously conf
 
 Before committing to a dynamic entry for the body field, a small preliminary test was conducted with a static entry, where an attempt was made to activley drop traffic from Google's public DNS (```8.8.8.8```).
 
-Thus the following static entry would be made in the ```Body``` field of the request:
+Thus, the following static entry would be made in the ```Body``` field of the request:
 ```
 {
   "command": "firewall-drop",
@@ -797,9 +797,9 @@ With the preliminary test complete, the static entry was replaced with a dynamic
   <p><em>Figure 64: A screenshot of the final entry that was made in the body field.  </em></p> 
 </div>
 
-**Adding Analyst Confirmation via User Input**: To avoid automatically blocking SSH login attempts for legitimate users, a User Input node was added to the workflow. This node would send an email notification to the analyst prompting them to decide whether to block the suspicious IP address. 
+**Adding Analyst Confirmation via User Input**: To avoid automatically blocking SSH login attempts for legitimate users, a User Input node was added to the workflow. This node would send an email notification to the analyst, prompting them to decide whether to block the suspicious IP address. 
 
-To implement this the User Input node would be dragged into the Shuffle workflow. The ```Information``` and ```Input options``` fields were then modified, with the final configuration being setup as follows: 
+To implement this the User Input node would be dragged into the Shuffle workflow. The ```Information``` and ```Input options``` fields were then modified, with the final configuration being set up as follows: 
 <div align="center" style="border: 2px solid #ccc; padding: 4px;"> 
   <img width="1331" height="682" alt="blurred-71 png(1)" src="https://github.com/user-attachments/assets/88375530-d5b8-4510-b518-6a9331f50ab6" />
   <p><em>Figure 65: A screenshot of a successfully configured User Input node.  </em></p> 
@@ -807,7 +807,7 @@ To implement this the User Input node would be dragged into the Shuffle workflow
 
 ## Final Workflow Validation
 
-**Real World Testing**: The final step for this project was to validate the effectiveness of the SOC automation workflow by exposing the cloud-hosted Ubuntu machine to the internet. Within minutes the server began recieving multiple automated SSH login attempts from random bots scanning for weak credentials. 
+**Real World Testing**: The final step for this project was to validate the effectiveness of the SOC automation workflow by exposing the cloud-hosted Ubuntu machine to the internet. Within minutes, the server began receiving multiple automated SSH login attempts from random bots scanning for weak credentials. 
 
 As designed, Wazuh successfully detected the failed login attempts, triggering the configured Shuffle workflow. This generated an automated email notification to the analyst, prompting whether the identified source IP address should be blocked. 
 
@@ -816,7 +816,7 @@ As designed, Wazuh successfully detected the failed login attempts, triggering t
   <p><em>Figure 66: A screenshot of the email notification sent to the analyst.  </em></p> 
 </div>
 
-Upon confirmation, the PUT request was issued to the Wazuh API, which in turn executed the active response. To verify if the malicious IP was successfully blocked the following command was ran on the Ubuntu Machine:
+Upon confirmation, the PUT request was issued to the Wazuh API, which in turn executed the active response. To verify if the malicious IP was successfully blocked, the following command was run on the Ubuntu Machine:
 ```
 iptables -L -n -v
 ```
@@ -833,8 +833,21 @@ By the end of the day the workflow had successfully identified, notified and blo
   <p><em>Figure 68: A screenshot of the number of email notifications sent during workflow testing.  </em></p> 
 </div>
 
-**Phase 2 Summary**: With Phase 2 of this project finalized and concluded, the alerting pipeline was extended into a responsive defense mechanism. Wazuh would detect repeated SSH login attempts, forward the events to Shuffle, and enrich the source IP address with VirusTotal. The workflow would then successfully authenticate with the Wazuh API and issue active responses to block malicious IP addresses at the firewall level. Finally user input was added to allow the analyst to choose whether or not responsive action is required by initiating commands via email. 
+**Phase 2 Summary**: With Phase 2 of this project finalized and concluded, the alerting pipeline was extended into a responsive defense mechanism. Wazuh would detect repeated SSH login attempts, forward the events to Shuffle, and enrich the source IP address with VirusTotal. The workflow would then successfully authenticate with the Wazuh API and issue active responses to block malicious IP addresses at the firewall level. Finally user input was added to allow the analyst to choose whether or not a responsive action is required by initiating commands via email. 
 
+## Conclusion
+Through this SOC Automation Project, I built a fully integrated, end-to-end SOAR pipeline combining Wazuh, Shuffle, and TheHive to automate detection, enrichment, and response workflows. I demonstrated:
+
+* The ability to design scalable automation workflows that reduce analyst fatigue and improve operational efficiency.
+* Experience configuring telemetry ingestion (Windows, Linux), writing custom detection rules, and enabling active response.
+* Real-world validation by detecting renamed Mimikatz binaries, enriching alerts with VirusTotal, and dynamically blocking malicious IPs while preserving analyst oversight.
+
+By exposing a cloud-hosted Linux endpoint to the internet, I was able to test this workflow against real-world conditions, blocking over 100 unique brute-force attempts within a single day. This practical validation demonstrates both the capability and the necessity of designing workflows that directly reduce analyst fatigue and strengthen the security posture.
+
+## References
+Major thanks to the  <a href="https://www.youtube.com/@MyDFIR">MYDFIR</a> YouTube channel for providing me with the insights and techniques necessary to make this project possible. The assembly and implementation of this project were indeed a challenging experience, and thus, the guidance provided proved to be invaluable.  
+1. https://www.youtube.com/watch?v=Lb_ukgtYK_U
+2. https://documentation.wazuh.com/current/user-manual/api/reference.html
 
 
 
