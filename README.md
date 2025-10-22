@@ -833,7 +833,7 @@ By the end of the day the workflow had successfully identified, notified and blo
   <p><em>Figure 68: A screenshot of the number of email notifications sent during workflow testing.  </em></p> 
 </div>
 
-**Phase 2 Summary**: With Phase 2 of this project finalized and concluded, the alerting pipeline was extended into a responsive defense mechanism. Wazuh would detect repeated SSH login attempts, forward the events to Shuffle, and enrich the source IP address with VirusTotal. The workflow would then successfully authenticate with the Wazuh API and issue active responses to block malicious IP addresses at the firewall level. Finally user input was added to allow the analyst to choose whether or not a responsive action is required by initiating commands via email. 
+**Phase 2 Summary**: With Phase 2 of this project finalized and concluded, the alerting pipeline was extended into a responsive defense mechanism. Wazuh would detect repeated SSH login attempts, forward the events to Shuffle, and enrich the source IP address with VirusTotal. The workflow would then successfully authenticate with the Wazuh API and issue active responses to block malicious IP addresses at the firewall level. Finally, user input was added to allow the analyst to choose whether or not a responsive action is required by initiating commands via email. 
 
 ## Conclusion
 Through this SOC Automation Project, I built a fully integrated, end-to-end SOAR pipeline combining Wazuh, Shuffle, and TheHive to automate detection, enrichment, and response workflows. I demonstrated:
@@ -845,7 +845,7 @@ Through this SOC Automation Project, I built a fully integrated, end-to-end SOAR
 By exposing a cloud-hosted Linux endpoint to the internet, I was able to test this workflow against real-world conditions, blocking over 100 unique brute-force attempts within a single day. This practical validation demonstrates both the capability and the necessity of designing workflows that directly reduce analyst fatigue and strengthen the security posture.
 
 ## References
-Major thanks to the  <a href="https://www.youtube.com/@MyDFIR">MYDFIR</a> YouTube channel for providing me with the insights and techniques necessary to make this project possible. The assembly and implementation of this project were indeed a challenging experience, and thus, the guidance provided proved to be invaluable.  
+Major thanks to the  <a href="https://www.youtube.com/@MyDFIR">MYDFIR</a> YouTube channel for providing me with the insights and techniques necessary to make this project possible. The assembly and implementation of this project was indeed a challenging experience, and thus, the guidance provided proved to be invaluable.  
 1. https://www.youtube.com/watch?v=Lb_ukgtYK_U
 2. https://documentation.wazuh.com/current/user-manual/api/reference.html
 
